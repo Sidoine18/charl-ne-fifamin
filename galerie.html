@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galerie | Charlène FIFAMIN KPATENON</title>
+  <meta name="description" content="Galerie photos et vidéos de Charlène FIFAMIN KPATENON — danseuse professionnelle, coach de danse et géomaticienne. Découvrez ses performances, coulisses et événements." />
+  <!-- OpenGraph -->
+  <meta property="og:title" content="Galerie | Charlène FIFAMIN KPATENON" />
+  <meta property="og:description" content="Photos & vidéos : performances, coaching, géomatique, événements." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1518834107812-67b0b7c58434?w=1200&q=80" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: { DEFAULT: '#C9A84C', light: '#E2C97E', dark: '#8A6820' },
+            obsidian: { DEFAULT: '#0A0A0F', mid: '#13131A', card: '#1A1A26', border: '#2A2A3A' },
+          },
+          fontFamily: {
+            display: ['Playfair Display', 'serif'],
+            body: ['Poppins', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ─── Base ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0A0A0F;
+      color: #E8E8EE;
+      overflow-x: hidden;
+    }
+
+    /* ─── Background pattern ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── Scroll Progress ─── */
+    #scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #C9A84C, #E2C97E, #C9A84C);
+      z-index: 9999;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    /* ─── Navbar ─── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 1rem 2rem;
+      transition: all 0.4s ease;
+      background: transparent;
+    }
+    #navbar.scrolled {
+      background: rgba(10,10,15,0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      padding: 0.75rem 2rem;
+    }
+    .nav-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      background: linear-gradient(135deg, #E2C97E, #C9A84C);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .nav-link {
+      position: relative;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: rgba(232,232,238,0.75);
+      transition: color 0.3s;
+      text-transform: uppercase;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: #C9A84C;
+      transition: width 0.3s;
+    }
+    .nav-link:hover { color: #E2C97E; }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link.active { color: #C9A84C; }
+    .nav-link.active::after { width: 100%; }
+
+    /* ─── Mobile menu ─── */
+    #mobile-menu { display: none; }
+    #mobile-menu.open { display: block; }
+
+    /* ─── Hero ─── */
+    .hero-section {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 80px;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,0.08) 0%, transparent 70%),
+                  radial-gradient(ellipse 50% 80% at 80% 20%, rgba(201,168,76,0.05) 0%, transparent 60%),
+                  linear-gradient(180deg, #0A0A0F 0%, #13131A 50%, #0A0A0F 100%);
+    }
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #C9A84C;
+      border: 1px solid rgba(201,168,76,0.3);
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      backdrop-filter: blur(10px);
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      background: linear-gradient(135deg, #fff 0%, #E2C97E 50%, #C9A84C 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .stat-card {
+      background: rgba(201,168,76,0.05);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 1rem;
+      padding: 1rem 1.5rem;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #C9A84C;
+    }
+
+    /* ─── Filters ─── */
+    .filter-bar {
+      background: rgba(26,26,38,0.8);
+      border: 1px solid rgba(42,42,58,0.8);
+      border-radius: 1.5rem;
+      backdrop-filter: blur(20px);
+      padding: 1.5rem;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1.2rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 1px solid rgba(42,42,58,0.9);
+      background: rgba(26,26,38,0.5);
+      color: rgba(232,232,238,0.7);
+      white-space: nowrap;
+    }
+    .chip:hover {
+      border-color: rgba(201,168,76,0.4);
+      color: #E2C97E;
+      background: rgba(201,168,76,0.08);
+    }
+    .chip.active {
+      background: linear-gradient(135deg, rgba(201,168,76,0.2), rgba(201,168,76,0.08));
+      border-color: #C9A84C;
+      color: #E2C97E;
+    }
+    .search-input {
+      background: rgba(10,10,15,0.6);
+      border: 1px solid rgba(42,42,58,0.9);
+      border-radius: 0.75rem;
+      padding: 0.65rem 1rem 0.65rem 2.5rem;
+      color: #E8E8EE;
+      font-size: 0.85rem;
+      transition: border-color 0.3s;
+      width: 100%;
+    }
+    .search-input:focus {
+      outline: none;
+      border-color: rgba(201,168,76,0.5);
+    }
+    .search-input::placeholder { color: rgba(232,232,238,0.35); }
+    .sort-select {
+      background: rgba(10,10,15,0.6);
+      border: 1px solid rgba(42,42,58,0.9);
+      border-radius: 0.75rem;
+      padding: 0.65rem 2rem 0.65rem 1rem;
+      color: #E8E8EE;
+      font-size: 0.8rem;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .sort-select:focus { outline: none; border-color: rgba(201,168,76,0.5); }
+
+    /* ─── Gallery grid ─── */
+    .gallery-grid {
+      columns: 4;
+      column-gap: 1rem;
+    }
+    @media (max-width: 1280px) { .gallery-grid { columns: 3; } }
+    @media (max-width: 768px)  { .gallery-grid { columns: 2; } }
+    @media (max-width: 480px)  { .gallery-grid { columns: 1; } }
+
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 1rem;
+      border-radius: 1rem;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      background: #1A1A26;
+      border: 1px solid rgba(42,42,58,0.6);
+      transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94),
+                  box-shadow 0.4s ease,
+                  border-color 0.3s;
+      display: block;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .gallery-item.revealed {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s ease, transform 0.6s ease,
+                  box-shadow 0.4s ease, border-color 0.3s;
+    }
+    .gallery-item:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 20px 60px rgba(201,168,76,0.15), 0 0 0 1px rgba(201,168,76,0.3);
+      border-color: rgba(201,168,76,0.4);
+      z-index: 2;
+    }
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.06); }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(10,10,15,0.95) 100%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .overlay-icon {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.9);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      color: #0A0A0F;
+      transform: scale(0.7);
+      transition: transform 0.3s;
+      box-shadow: 0 0 30px rgba(201,168,76,0.5);
+    }
+    .gallery-item:hover .overlay-icon { transform: scale(1); }
+    .gallery-info {
+      padding: 0.85rem 1rem;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .badge-danse    { background: rgba(201,168,76,0.15); color: #E2C97E; border: 1px solid rgba(201,168,76,0.3); }
+    .badge-coaching { background: rgba(99,102,241,0.15); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.3); }
+    .badge-evenement { background: rgba(236,72,153,0.15); color: #f9a8d4; border: 1px solid rgba(236,72,153,0.3); }
+    .badge-geomatique { background: rgba(34,211,238,0.12); color: #67e8f9; border: 1px solid rgba(34,211,238,0.25); }
+    .badge-coulisses { background: rgba(251,146,60,0.12); color: #fdba74; border: 1px solid rgba(251,146,60,0.25); }
+    .badge-video    { background: rgba(239,68,68,0.15); color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); }
+
+    /* ─── Favorite heart ─── */
+    .fav-btn {
+      position: absolute;
+      top: 0.6rem; right: 0.6rem;
+      background: rgba(10,10,15,0.7);
+      border: 1px solid rgba(42,42,58,0.9);
+      border-radius: 50%;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      color: rgba(232,232,238,0.5);
+      z-index: 5;
+    }
+    .fav-btn:hover, .fav-btn.active { color: #ef4444; border-color: rgba(239,68,68,0.4); }
+
+    /* ─── Skeleton ─── */
+    .skeleton {
+      background: linear-gradient(90deg, #1A1A26 25%, #22223A 50%, #1A1A26 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 1rem;
+      break-inside: avoid;
+      margin-bottom: 1rem;
+    }
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* ─── Load more ─── */
+    .load-more-btn {
+      background: transparent;
+      border: 1px solid rgba(201,168,76,0.4);
+      color: #C9A84C;
+      padding: 0.9rem 2.5rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .load-more-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(201,168,76,0.15), rgba(201,168,76,0.05));
+      transform: translateX(-100%);
+      transition: transform 0.4s;
+    }
+    .load-more-btn:hover::before { transform: translateX(0); }
+    .load-more-btn:hover {
+      border-color: #C9A84C;
+      box-shadow: 0 0 30px rgba(201,168,76,0.2);
+    }
+
+    /* ─── Video cards ─── */
+    .video-card {
+      background: #1A1A26;
+      border: 1px solid rgba(42,42,58,0.6);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.3s;
+    }
+    .video-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 60px rgba(201,168,76,0.12);
+      border-color: rgba(201,168,76,0.3);
+    }
+    .video-thumb {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+    }
+    .video-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+    .video-card:hover .video-thumb img { transform: scale(1.05); }
+    .play-btn-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10,10,15,0.4);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .play-circle {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.9);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      color: #0A0A0F;
+      box-shadow: 0 0 40px rgba(201,168,76,0.4);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .video-card:hover .play-circle {
+      transform: scale(1.1);
+      box-shadow: 0 0 60px rgba(201,168,76,0.6);
+    }
+
+    /* ─── Section titles ─── */
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #C9A84C;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 900;
+      color: #fff;
+    }
+    .gold-line {
+      width: 60px; height: 2px;
+      background: linear-gradient(90deg, #C9A84C, transparent);
+    }
+
+    /* ─── Collab cards ─── */
+    .collab-card {
+      background: rgba(26,26,38,0.6);
+      border: 1px solid rgba(42,42,58,0.6);
+      border-radius: 1.2rem;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s;
+      backdrop-filter: blur(10px);
+    }
+    .collab-card:hover {
+      border-color: rgba(201,168,76,0.3);
+      background: rgba(201,168,76,0.05);
+    }
+    .collab-icon {
+      width: 56px; height: 56px;
+      border-radius: 1rem;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      color: #C9A84C;
+      margin: 0 auto 1rem;
+    }
+
+    /* ─── Contact section ─── */
+    .contact-input {
+      background: rgba(10,10,15,0.6);
+      border: 1px solid rgba(42,42,58,0.9);
+      border-radius: 0.75rem;
+      padding: 0.85rem 1rem;
+      color: #E8E8EE;
+      font-size: 0.875rem;
+      font-family: 'Poppins', sans-serif;
+      transition: border-color 0.3s;
+      width: 100%;
+    }
+    .contact-input:focus { outline: none; border-color: rgba(201,168,76,0.5); }
+    .contact-input::placeholder { color: rgba(232,232,238,0.3); }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #C9A84C, #E2C97E, #C9A84C);
+      background-size: 200% auto;
+      color: #0A0A0F;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      padding: 0.9rem 2rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      transition: background-position 0.4s, box-shadow 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-gold:hover {
+      background-position: right center;
+      box-shadow: 0 0 30px rgba(201,168,76,0.4);
+    }
+    .btn-outline-gold {
+      background: transparent;
+      border: 1px solid rgba(201,168,76,0.5);
+      color: #C9A84C;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      padding: 0.9rem 2rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-outline-gold:hover {
+      background: rgba(201,168,76,0.08);
+      border-color: #C9A84C;
+      box-shadow: 0 0 20px rgba(201,168,76,0.15);
+    }
+
+    /* ─── Lightbox ─── */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.95);
+      z-index: 9998;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      backdrop-filter: blur(20px);
+    }
+    #lightbox.open { display: flex; }
+    .lightbox-content {
+      position: relative;
+      max-width: 1100px;
+      width: 100%;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .lightbox-img {
+      max-height: 75vh;
+      width: 100%;
+      object-fit: contain;
+      border-radius: 1rem;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: -3rem; right: 0;
+      background: rgba(42,42,58,0.8);
+      border: 1px solid rgba(201,168,76,0.3);
+      color: #E2C97E;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.3s;
+    }
+    .lightbox-close:hover { background: rgba(201,168,76,0.2); }
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(42,42,58,0.8);
+      border: 1px solid rgba(201,168,76,0.3);
+      color: #E2C97E;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.3s;
+    }
+    .lightbox-nav:hover { background: rgba(201,168,76,0.2); box-shadow: 0 0 20px rgba(201,168,76,0.2); }
+    #lb-prev { left: -60px; }
+    #lb-next { right: -60px; }
+    @media (max-width: 768px) {
+      #lb-prev { left: 0.5rem; }
+      #lb-next { right: 0.5rem; }
+    }
+
+    /* ─── Video modal ─── */
+    #video-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.95);
+      z-index: 9998;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      backdrop-filter: blur(20px);
+    }
+    #video-modal.open { display: flex; }
+    .video-modal-content {
+      position: relative;
+      max-width: 900px;
+      width: 100%;
+    }
+    .video-modal-close {
+      position: absolute;
+      top: -3rem; right: 0;
+      background: rgba(42,42,58,0.8);
+      border: 1px solid rgba(201,168,76,0.3);
+      color: #E2C97E;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.3s;
+    }
+    .video-embed {
+      aspect-ratio: 16/9;
+      width: 100%;
+      border-radius: 1rem;
+      border: none;
+    }
+
+    /* ─── Floating WhatsApp ─── */
+    #whatsapp-float {
+      position: fixed;
+      bottom: 2rem; right: 2rem;
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      color: white;
+      cursor: pointer;
+      z-index: 900;
+      box-shadow: 0 8px 30px rgba(37,211,102,0.4);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-decoration: none;
+    }
+    #whatsapp-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 12px 40px rgba(37,211,102,0.6);
+    }
+
+    /* ─── Back to top ─── */
+    #back-top {
+      position: fixed;
+      bottom: 5.5rem; right: 2rem;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.15);
+      border: 1px solid rgba(201,168,76,0.4);
+      color: #C9A84C;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      z-index: 900;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s;
+      font-size: 0.9rem;
+    }
+    #back-top.visible { opacity: 1; transform: translateY(0); }
+    #back-top:hover { background: rgba(201,168,76,0.25); box-shadow: 0 0 20px rgba(201,168,76,0.2); }
+
+    /* ─── Reveal animation ─── */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── Result counter ─── */
+    #result-count { font-size: 0.8rem; color: rgba(232,232,238,0.5); }
+
+    /* ─── Reduced motion ─── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      border-top: 1px solid rgba(42,42,58,0.6);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════ SCROLL PROGRESS ═══════════════════ -->
+<div id="scroll-progress"></div>
+
+<!-- ═══════════════════ NAVBAR ═══════════════════ -->
+<nav id="navbar">
+  <div class="max-w-7xl mx-auto flex items-center justify-between">
+    <!-- Logo -->
+    <a href="index.html" class="flex items-center gap-3 group">
+      <div class="w-9 h-9 rounded-full bg-gradient-to-br from-gold-light to-gold flex items-center justify-center text-obsidian font-bold text-sm">CF</div>
+      <span class="nav-logo-text text-lg tracking-wide hidden sm:block">Charlène FIFAMIN</span>
+    </a>
+
+    <!-- Desktop menu -->
+    <div class="hidden lg:flex items-center gap-7">
+      <a href="index.html" class="nav-link">Accueil</a>
+      <a href="danse.html" class="nav-link">Danse</a>
+      <a href="geomatique.html" class="nav-link">Géomatique</a>
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="galerie.html" class="nav-link active">Galerie</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+
+    <!-- CTA + Hamburger -->
+    <div class="flex items-center gap-3">
+      <!-- REMPLACER: votre numéro WhatsApp -->
+      <a href="https://wa.me/229XXXXXXXX?text=Bonjour%20Charl%C3%A8ne%2C%20je%20souhaite%20r%C3%A9server%20une%20prestation."
+         target="_blank"
+         class="btn-gold text-xs px-4 py-2 hidden sm:inline-flex">
+        <i class="fab fa-whatsapp"></i> Réserver / Devis
+      </a>
+      <button id="menu-toggle" class="lg:hidden text-gold text-xl p-2" aria-label="Menu">
+        <i class="fas fa-bars" id="menu-icon"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="lg:hidden mt-4 pb-4 border-t border-obsidian-border pt-4">
+    <div class="flex flex-col gap-3 max-w-7xl mx-auto">
+      <a href="index.html" class="nav-link py-2">Accueil</a>
+      <a href="danse.html" class="nav-link py-2">Danse</a>
+      <a href="geomatique.html" class="nav-link py-2">Géomatique</a>
+      <a href="services.html" class="nav-link py-2">Services</a>
+      <a href="galerie.html" class="nav-link active py-2">Galerie</a>
+      <a href="#contact" class="nav-link py-2">Contact</a>
+      <a href="https://wa.me/229XXXXXXXX" target="_blank" class="btn-gold text-xs px-4 py-2 w-fit mt-2">
+        <i class="fab fa-whatsapp"></i> Réserver / Devis
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section class="hero-section">
+  <div class="hero-bg"></div>
+  <div class="max-w-7xl mx-auto px-6 w-full relative z-10 py-20">
+    <div class="max-w-3xl">
+      <div class="hero-label mb-6">
+        <i class="fas fa-images"></i>
+        Galerie • Photos &amp; Vidéos
+      </div>
+      <h1 class="hero-title mb-6">
+        Les moments.<br/>L'énergie.<br/>La culture.
+      </h1>
+      <p class="text-lg text-white/60 mb-10 leading-relaxed max-w-xl">
+        Découvrez mes performances, coaching, répétitions et moments terrain. Chaque image raconte une histoire d'excellence et de passion.
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex flex-wrap gap-4 mb-14">
+        <!-- REMPLACER: votre lien TikTok/Instagram -->
+        <a href="https://www.instagram.com/REMPLACER_PSEUDO" target="_blank" class="btn-gold">
+          <i class="fab fa-instagram"></i> Suivre sur Instagram
+        </a>
+        <a href="https://wa.me/229XXXXXXXX" target="_blank" class="btn-outline-gold">
+          <i class="fab fa-whatsapp"></i> Réserver une prestation
+        </a>
+      </div>
+
+      <!-- Stats -->
+      <div class="flex flex-wrap gap-4">
+        <div class="stat-card">
+          <div class="stat-number" id="photos-count">0</div>
+          <div class="text-xs text-white/50 mt-1 uppercase tracking-widest">Photos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="videos-count">0</div>
+          <div class="text-xs text-white/50 mt-1 uppercase tracking-widest">Vidéos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="events-count">0</div>
+          <div class="text-xs text-white/50 mt-1 uppercase tracking-widest">Événements</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FILTER BAR ═══════════════════ -->
+<section class="relative z-10 py-8 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="filter-bar reveal">
+      <!-- Search + Sort row -->
+      <div class="flex flex-col sm:flex-row gap-3 mb-4">
+        <!-- Search -->
+        <div class="relative flex-1">
+          <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gold/50 text-sm"></i>
+          <input type="text" id="search-input" class="search-input" placeholder="Rechercher par titre, tag..." />
+        </div>
+        <!-- Sort -->
+        <div class="relative">
+          <select id="sort-select" class="sort-select pr-8 min-w-[160px]">
+            <option value="recent">Plus récents</option>
+            <option value="popular">Populaires</option>
+            <option value="az">A – Z</option>
+          </select>
+          <i class="fas fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-gold/50 text-xs pointer-events-none"></i>
+        </div>
+      </div>
+
+      <!-- Filter chips -->
+      <div class="flex flex-wrap gap-2 items-center">
+        <span class="text-xs text-white/40 uppercase tracking-widest font-semibold mr-1">Filtrer :</span>
+        <button class="chip active" data-filter="all"><i class="fas fa-border-all text-xs"></i> Tout</button>
+        <button class="chip" data-filter="Danse"><i class="fas fa-music text-xs"></i> Danse</button>
+        <button class="chip" data-filter="Coaching"><i class="fas fa-hands-helping text-xs"></i> Coaching</button>
+        <button class="chip" data-filter="Evenement"><i class="fas fa-star text-xs"></i> Événements</button>
+        <button class="chip" data-filter="Geomatique"><i class="fas fa-map-marked-alt text-xs"></i> Géomatique</button>
+        <button class="chip" data-filter="Coulisses"><i class="fas fa-camera text-xs"></i> Coulisses</button>
+        <button class="chip" data-filter="video"><i class="fas fa-play-circle text-xs"></i> Vidéos</button>
+      </div>
+
+      <!-- Result count -->
+      <div class="mt-3 flex items-center justify-between">
+        <span id="result-count">Chargement...</span>
+        <button class="text-xs text-white/40 hover:text-gold/70 transition-colors" onclick="clearFilters()">
+          <i class="fas fa-times mr-1"></i> Réinitialiser
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ GALLERY GRID ═══════════════════ -->
+<section class="relative z-10 py-4 px-6">
+  <div class="max-w-7xl mx-auto">
+    <!-- Skeletons (shown on load) -->
+    <div id="skeleton-grid" class="gallery-grid">
+      <!-- skeletons injected by JS -->
+    </div>
+
+    <!-- Gallery -->
+    <div id="gallery-grid" class="gallery-grid" style="display:none;"></div>
+
+    <!-- No results -->
+    <div id="no-results" class="hidden text-center py-20">
+      <div class="text-5xl mb-4">🔍</div>
+      <div class="text-white/50 text-lg">Aucun résultat pour cette recherche.</div>
+      <button onclick="clearFilters()" class="btn-outline-gold mt-6 text-sm">Voir tout</button>
+    </div>
+
+    <!-- Load more -->
+    <div class="text-center mt-10" id="load-more-wrap">
+      <button class="load-more-btn" id="load-more-btn" onclick="loadMore()">
+        <i class="fas fa-plus-circle mr-2"></i> Charger plus <span id="remaining-count"></span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FEATURED VIDEOS ═══════════════════ -->
+<section class="relative z-10 py-20 px-6" id="videos-section">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-12 reveal">
+      <div class="section-label mb-3"><i class="fas fa-film"></i> Contenu vidéo</div>
+      <h2 class="section-title mb-4">Vidéos à la une</h2>
+      <div class="gold-line mx-auto"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <!-- VIDEO CARD 1 — Remplacer thumbUrl & videoEmbedUrl -->
+      <div class="video-card reveal cursor-pointer" onclick="openVideoModal('https://www.youtube.com/embed/REMPLACER_ID_1')">
+        <div class="video-thumb">
+          <!-- Remplacer par vrai thumbnail de la vidéo de Charlène -->
+          <img src="https://images.unsplash.com/photo-1518834107812-67b0b7c58434?w=600&q=80" alt="Performance de danse" loading="lazy" />
+          <div class="play-btn-overlay">
+            <div class="play-circle"><i class="fas fa-play ml-1"></i></div>
+          </div>
+          <div class="absolute top-3 left-3"><span class="badge badge-danse">Danse</span></div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-white text-sm mb-1">Performance · Festival Afro-Dance 2024</h3>
+          <!-- Remplacer par la date réelle -->
+          <p class="text-xs text-white/40">Décembre 2024 · 2.4K vues</p>
+        </div>
+      </div>
+
+      <!-- VIDEO CARD 2 -->
+      <div class="video-card reveal cursor-pointer" onclick="openVideoModal('https://www.youtube.com/embed/REMPLACER_ID_2')">
+        <div class="video-thumb">
+          <!-- Remplacer par vrai thumbnail -->
+          <img src="https://images.unsplash.com/photo-1547153760-18fc86324498?w=600&q=80" alt="Session coaching" loading="lazy" />
+          <div class="play-btn-overlay">
+            <div class="play-circle"><i class="fas fa-play ml-1"></i></div>
+          </div>
+          <div class="absolute top-3 left-3"><span class="badge badge-coaching">Coaching</span></div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-white text-sm mb-1">Session coaching · Groupe avancé</h3>
+          <p class="text-xs text-white/40">Novembre 2024 · 1.8K vues</p>
+        </div>
+      </div>
+
+      <!-- VIDEO CARD 3 -->
+      <div class="video-card reveal cursor-pointer" onclick="openVideoModal('https://www.youtube.com/embed/REMPLACER_ID_3')">
+        <div class="video-thumb">
+          <!-- Remplacer par vrai thumbnail -->
+          <img src="https://images.unsplash.com/photo-1493225255440-95dc4f8fedb4?w=600&q=80" alt="Terrain géomatique" loading="lazy" />
+          <div class="play-btn-overlay">
+            <div class="play-circle"><i class="fas fa-play ml-1"></i></div>
+          </div>
+          <div class="absolute top-3 left-3"><span class="badge badge-geomatique">Géomatique</span></div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-white text-sm mb-1">Mission terrain · Cartographie urbaine</h3>
+          <p class="text-xs text-white/40">Octobre 2024 · 950 vues</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center mt-8 reveal">
+      <button class="btn-outline-gold" onclick="document.querySelector('[data-filter=&quot;video&quot;]').click(); document.getElementById('gallery-grid').scrollIntoView({behavior:'smooth'})">
+        <i class="fas fa-play-circle"></i> Voir plus de vidéos
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ COLLAB / PRESSE ═══════════════════ -->
+<section class="relative z-10 py-16 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-12 reveal">
+      <div class="section-label mb-3"><i class="fas fa-award"></i> Crédibilité</div>
+      <h2 class="section-title mb-4">Collaborations &amp; Événements</h2>
+      <div class="gold-line mx-auto"></div>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <!-- Remplacer par de vraies collaborations / événements de Charlène -->
+      <div class="collab-card reveal">
+        <div class="collab-icon"><i class="fas fa-building"></i></div>
+        <div class="text-sm font-semibold text-white mb-1">Festival Afro 2024</div>
+        <div class="text-xs text-white/40">Performance principale</div>
+      </div>
+      <div class="collab-card reveal" style="transition-delay:0.1s">
+        <div class="collab-icon"><i class="fas fa-university"></i></div>
+        <div class="text-sm font-semibold text-white mb-1">Université d'Abomey</div>
+        <div class="text-xs text-white/40">Workshop géomatique</div>
+      </div>
+      <div class="collab-card reveal" style="transition-delay:0.2s">
+        <div class="collab-icon"><i class="fas fa-tv"></i></div>
+        <div class="text-sm font-semibold text-white mb-1">ORTB Bénin</div>
+        <div class="text-xs text-white/40">Reportage & Interview</div>
+      </div>
+      <div class="collab-card reveal" style="transition-delay:0.3s">
+        <div class="collab-icon"><i class="fas fa-globe-africa"></i></div>
+        <div class="text-sm font-semibold text-white mb-1">AfriGIS Summit</div>
+        <div class="text-xs text-white/40">Conférence 2023</div>
+      </div>
+    </div>
+
+    <div class="mt-10 reveal">
+      <div class="bg-gradient-to-r from-obsidian-card to-obsidian-mid border border-obsidian-border rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center gap-6">
+        <div class="text-5xl">✨</div>
+        <div>
+          <h3 class="font-display text-xl text-white mb-2">Prête pour votre événement ?</h3>
+          <p class="text-white/50 text-sm leading-relaxed">Charlène se produit lors de galas, spectacles, mariages, événements culturels et formations professionnelles. Contactez-la pour discuter de votre projet.</p>
+        </div>
+        <a href="#contact" class="btn-gold whitespace-nowrap flex-shrink-0">
+          <i class="fas fa-paper-plane"></i> Me contacter
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CONTACT ═══════════════════ -->
+<section class="relative z-10 py-20 px-6" id="contact">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-12 reveal">
+      <div class="section-label mb-3"><i class="fas fa-envelope"></i> Me joindre</div>
+      <h2 class="section-title mb-4">Réservation express</h2>
+      <div class="gold-line mx-auto"></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+      <!-- Infos contact -->
+      <div class="space-y-6 reveal">
+        <h3 class="font-display text-2xl text-white">Restons en contact</h3>
+        <p class="text-white/60 leading-relaxed">Que ce soit pour une performance, un cours de danse, une mission géomatique ou une collaboration, n'hésitez pas à me contacter.</p>
+
+        <div class="space-y-4">
+          <!-- REMPLACER: votre email -->
+          <a href="mailto:charlene@exemple.com" class="flex items-center gap-4 group">
+            <div class="w-10 h-10 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center text-gold group-hover:bg-gold/20 transition-colors">
+              <i class="fas fa-envelope text-sm"></i>
+            </div>
+            <div>
+              <div class="text-xs text-white/40 uppercase tracking-widest">Email</div>
+              <div class="text-sm text-white group-hover:text-gold transition-colors">charlene@exemple.com</div>
+            </div>
+          </a>
+          <!-- REMPLACER: votre numéro -->
+          <a href="https://wa.me/229XXXXXXXX" target="_blank" class="flex items-center gap-4 group">
+            <div class="w-10 h-10 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-400 group-hover:bg-green-500/20 transition-colors">
+              <i class="fab fa-whatsapp text-sm"></i>
+            </div>
+            <div>
+              <div class="text-xs text-white/40 uppercase tracking-widest">WhatsApp</div>
+              <div class="text-sm text-white group-hover:text-green-400 transition-colors">+229 XX XX XX XX</div>
+            </div>
+          </a>
+          <!-- REMPLACER: votre lien Instagram -->
+          <a href="https://instagram.com/REMPLACER" target="_blank" class="flex items-center gap-4 group">
+            <div class="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400 group-hover:bg-pink-500/20 transition-colors">
+              <i class="fab fa-instagram text-sm"></i>
+            </div>
+            <div>
+              <div class="text-xs text-white/40 uppercase tracking-widest">Instagram</div>
+              <div class="text-sm text-white group-hover:text-pink-400 transition-colors">@REMPLACER_PSEUDO</div>
+            </div>
+          </a>
+          <!-- REMPLACER: votre lien TikTok -->
+          <a href="https://tiktok.com/@REMPLACER" target="_blank" class="flex items-center gap-4 group">
+            <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-500/20 transition-colors">
+              <i class="fab fa-tiktok text-sm"></i>
+            </div>
+            <div>
+              <div class="text-xs text-white/40 uppercase tracking-widest">TikTok</div>
+              <div class="text-sm text-white group-hover:text-cyan-400 transition-colors">@REMPLACER_PSEUDO</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="reveal" style="transition-delay:0.2s">
+        <div class="bg-obsidian-card border border-obsidian-border rounded-2xl p-6 md:p-8">
+          <h3 class="font-semibold text-white mb-6">Envoyer via WhatsApp</h3>
+          <div class="space-y-4">
+            <input type="text" id="form-name" class="contact-input" placeholder="Votre nom complet" />
+            <select id="form-type" class="contact-input" style="cursor:pointer;">
+              <option value="">Type de prestation</option>
+              <option value="Spectacle de danse">Spectacle de danse</option>
+              <option value="Cours de danse particulier">Cours particulier</option>
+              <option value="Coaching de groupe">Coaching de groupe</option>
+              <option value="Mission géomatique">Mission géomatique</option>
+              <option value="Collaboration">Collaboration</option>
+              <option value="Autre">Autre</option>
+            </select>
+            <input type="date" id="form-date" class="contact-input" />
+            <textarea id="form-message" class="contact-input" rows="4" placeholder="Décrivez votre projet ou demande..."></textarea>
+
+            <button onclick="sendWhatsApp()" class="btn-gold w-full justify-center text-sm py-3">
+              <i class="fab fa-whatsapp"></i> Envoyer sur WhatsApp
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="relative z-10 py-10 px-6 mt-4">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-gold-light to-gold flex items-center justify-center text-obsidian font-bold text-xs">CF</div>
+        <span class="font-display font-bold text-white/80">Charlène FIFAMIN KPATENON</span>
+      </div>
+      <div class="text-xs text-white/30 text-center">
+        © 2024 Charlène FIFAMIN KPATENON. Tous droits réservés.
+      </div>
+      <div class="flex items-center gap-4">
+        <!-- REMPLACER: vos liens réseaux -->
+        <a href="https://instagram.com/REMPLACER" class="text-white/40 hover:text-gold transition-colors"><i class="fab fa-instagram"></i></a>
+        <a href="https://tiktok.com/@REMPLACER" class="text-white/40 hover:text-gold transition-colors"><i class="fab fa-tiktok"></i></a>
+        <a href="https://wa.me/229XXXXXXXX" class="text-white/40 hover:text-green-400 transition-colors"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════ LIGHTBOX ═══════════════════ -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Visionneuse photo">
+  <div class="lightbox-content">
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="Fermer"><i class="fas fa-times"></i></button>
+    <button class="lightbox-nav" id="lb-prev" onclick="lbNav(-1)" aria-label="Précédent"><i class="fas fa-chevron-left"></i></button>
+    <button class="lightbox-nav" id="lb-next" onclick="lbNav(1)" aria-label="Suivant"><i class="fas fa-chevron-right"></i></button>
+
+    <div class="flex items-center justify-center" style="min-height:60vh;">
+      <img id="lb-img" src="" alt="" class="lightbox-img" />
+    </div>
+
+    <div class="flex items-start justify-between gap-4 px-2">
+      <div>
+        <div id="lb-badge" class="badge mb-2"></div>
+        <h3 id="lb-title" class="font-display text-xl text-white"></h3>
+        <p id="lb-date" class="text-sm text-white/40 mt-1"></p>
+        <div id="lb-tags" class="flex flex-wrap gap-2 mt-2"></div>
+      </div>
+      <div class="flex gap-2 flex-shrink-0">
+        <button onclick="lbShare()" class="lightbox-close" style="position:relative;top:auto;right:auto;" title="Copier le lien" aria-label="Partager">
+          <i class="fas fa-share-alt"></i>
+        </button>
+        <button onclick="lbFav()" id="lb-fav-btn" class="lightbox-close" style="position:relative;top:auto;right:auto;" title="Favori" aria-label="Favori">
+          <i class="fas fa-heart"></i>
+        </button>
+      </div>
+    </div>
+    <p id="lb-counter" class="text-xs text-white/30 text-center mt-2"></p>
+  </div>
+</div>
+
+<!-- ═══════════════════ VIDEO MODAL ═══════════════════ -->
+<div id="video-modal" role="dialog" aria-modal="true" aria-label="Lecteur vidéo">
+  <div class="video-modal-content">
+    <button class="video-modal-close" onclick="closeVideoModal()" aria-label="Fermer"><i class="fas fa-times"></i></button>
+    <iframe id="video-iframe" class="video-embed" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  </div>
+</div>
+
+<!-- ═══════════════════ FLOATING BUTTONS ═══════════════════ -->
+<!-- REMPLACER: votre numéro WhatsApp -->
+<a id="whatsapp-float" href="https://wa.me/229XXXXXXXX?text=Bonjour%20Charle%CC%80ne%2C%20je%20vous%20contacte%20via%20votre%20galerie." target="_blank" aria-label="WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">
+  <i class="fas fa-chevron-up"></i>
+</button>
+
+<!-- ═══════════════════ JAVASCRIPT ═══════════════════ -->
+<script>
+// ─── CONFIG ─────────────────────────────────────────────
+// REMPLACER: votre numéro WhatsApp complet (ex: 22966XXXXXX)
+const phoneNumber = "229XXXXXXXX";
+
+const PAGE_SIZE = 12; // items par chargement
+
+// ─── GALLERY DATA ────────────────────────────────────────
+// Remplacer les URLs Unsplash par les vraies photos/vidéos de Charlène.
+// Pour les vidéos, remplacer YOUTUBE_ID par l'ID réel de la vidéo YouTube.
+const galleryItems = [
+  // ── DANSE ──
+  {
+    id: 1, type: "photo", category: "Danse",
+    title: "Solo contemporain · Scène nationale",
+    date: "Déc 2024", popularity: 98,
+    thumbUrl: "https://images.unsplash.com/photo-1518834107812-67b0b7c58434?w=600&q=75",
+    fullUrl:  "https://images.unsplash.com/photo-1518834107812-67b0b7c58434?w=1200&q=90",
+    tags: ["danse", "contemporain", "solo"]
+  },
+  {
+    id: 2, type: "photo", category: "Danse",
+    title: "Performance afrobeat · Festival Cotonou",
+    date: "Nov 2024", popularity: 92,
+    thumbUrl: "https://images.unsplash.com/photo-1547153760-18fc86324498?w=600&q=75",
+    fullUrl:  "https://images.unsplash.com/photo-1547153760-18fc86324498?w=1200&q=90",
+    tags: ["afrobeat", "festival", "scène"]
+  },
+  {
+    id: 3, type: "video", category: "Danse",
+    title: "Freestyle · Zumba extérieur",
+    date: "Oct 2024", popularity: 85,
+    thumbUrl: "https://images.unsplash.com/photo-1493225255440-95dc4f8fedb4?w=600&q=75",
+    videoEmbedUrl: "https://www.youtube.com/embed/YOUTUBE_ID_DANSE_1?autoplay=1",
+    tags: ["freestyle", "zumba", "outdoor"]
+  },
+  {
+    id: 4, type: "photo", category: "Danse",
+    title: "Ballet africain · Gala annuel",
+    date: "Sep 2024", popularity: 88,
+    thumbUrl: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&q=75",
+    fullUrl:  "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=1200&q=90",
+    tags: ["ballet", "afrique", "gala"]
+  },
+  {
+    id: 5, type: "photo", category: "Danse",
+    title: "Duo · Chorégraphie fusion",
+    date: "Août 2024", popularity: 76,
+    thumbUrl: "https://images.unsplash.com/photo-1535525153412-5a42439a210d?w=600&q=75",
+    fullUrl:  "https://images.unsplash.com/photo-1535525153412-5a42439a210d?w=1200&q=90",
+    tags: ["duo", "fusion", "chorégraphie"]
+  },
+  {
+    id: 6, type: "photo", category: "Danse",
+    title: "Répétition générale · Lumières tamisées",
+    date: "Juil 2024", popularity: 70,
+    thumbUrl: "https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=600&q=75",
+    fullUrl:  "https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=1200&q=90",
+    tags: ["répétition", "scène", "lumières"]
+  },
+
+  // ── COACHING ──
+  {
+    id: 7, type: "photo", category: "Coaching",
+    title: "Atelier débutants · Studio de danse",
+    date: "Nov 2024", popularity: 80,
+    thumbUrl: "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=600&q=75",
+    fullUrl:  "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=1200&q=90",
+    tags: ["coaching", "débutants", "studio"]
+  },
+  {
+    id: 8, type: "video", category: "Coaching",
+    title: "Masterclass · Technique Afro",
+    date: "Oct 2024", popularity: 91,
+    thumbUrl: "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=600&q=75",
+    videoEmbedUrl: "https://www.youtube.com/embed/YOUTUBE_ID_COACHING_1?autoplay=1",
+    tags: ["masterclass", "technique", "afro"]
+  },
+  {
+    id: 9, type: "photo", category: "Coaching",
+    title: "Coaching enfants · Expression corporelle",
+    date: "Sep 2024", popularity: 74,
+    thumbUrl: "https://images.unsplash.com/photo-1603202662706-8d7af3d4cc8e?w=600&q=75",
+    fullUrl:  "https://images.unsplash.com/photo-1603202662706-8d7af3d4cc8e?w=1200&q=90",
+    tags: ["enfants", "expression", "coaching"]
+  },
+  {
+    id: 10, type: "photo", category: "Coaching",
+    title: "Formation professeurs · Module avancé",
+    date: "Août 2024", popularity: 66,
+    thumbUrl: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600&q=75",
+    fullUrl:  "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1200&q=90",
+    tags: ["formation", "professeurs", "avancé"]
+  },
+
+  // ── ÉVÉNEMENTS ──
+  {
+    id: 11, type: "photo", category: "Evenement",
+    title: "Gala de fin d'année · Salle comble",
+    date: "Déc 2024", popularity: 95,
+    thumbUrl: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&q=75",
+    fullUrl:  "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1200&q=90",
+    tags: ["gala", "événement", "scène"]
+  },
+  {
+    id: 12, type: "video", category: "Evenement",
+    title: "Festival Afro-Dance · Highlight 2024",
+    date: "Nov 2024", popularity: 99,
+    thumbUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=75",
+    videoEmbedUrl: "https://www.youtube.com/embed/YOUTUBE_ID_EVENT_1?autoplay=1",
+    tags: ["festival", "highlight", "2024"]
+  },
+  {
+    id: 13, type: "photo", category: "Evenement",
+    title: "Mariage VIP · Choreography surprise",
+    date: "Oct 2024", popularity: 89,
+    thumbUrl: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&q=75",
+    fullUrl:  "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1200&q=90",
+    tags: ["mariage", "surprise", "performance"]
+  },
+  {
+    id: 14, type: "photo", category: "Evenement",
+    title: "Showcase · Lancement marque locale",
+    date: "Sep 2024", popularity: 73,
+    thumbUrl: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=600&q=75",
+    fullUrl:  "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=1200&q=90",
+    tags: ["showcase", "marque", "événement"]
+  },
+
+  // ── GÉOMATIQUE ──
+  {
+    id: 15, type: "photo", category: "Geomatique",
+    title: "Levé GPS · Mission terrain Cotonou",
+    date: "Nov 2024", popularity: 60,
+    thumbUrl: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&q=75",
+    fullUrl:  "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1200&q=90",
+    tags: ["gps", "terrain", "cartographie"]
+  },
+  {
+    id: 16, type: "photo", category: "Geomatique",
+    title: "SIG · Cartographie participative",
+    date: "Oct 2024", popularity: 55,
+    thumbUrl: "https://images.unsplash.com/photo-1484417894907-623942c8ee29?w=600&q=75",
+    fullUrl:  "https://images.unsplash.com/photo-1484417894907-623942c8ee29?w=1200&q=90",
+    tags: ["sig", "cartographie", "participatif"]
+  },
+  {
+    id: 17, type: "video", category: "Geomatique",
+    title: "Présentation SIG · Conférence AfriGIS",
+    date: "Sep 2024", popularity: 62,
+    thumbUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=75",
+    videoEmbedUrl: "https://www.youtube.com/embed/YOUTUBE_ID_GEO_1?autoplay=1",
+    tags: ["conférence", "sig", "afrigis"]
+  },
+  {
+    id: 18, type: "photo", category: "Geomatique",
+    title: "Drone · Cartographie aérienne",
+    date: "Août 2024", popularity: 58,
+    thumbUrl: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=75",
+    fullUrl:  "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=1200&q=90",
+    tags: ["drone", "aérien", "cartographie"]
+  },
+
+  // ── COULISSES ──
+  {
+    id: 19, type: "photo", category: "Coulisses",
+    title: "Backstage · Maquillage avant scène",
+    date: "Déc 2024", popularity: 82,
+    thumbUrl: "https://images.unsplash.com/photo-1512100356356-de1b84283e18?w=600&q=75",
+    fullUrl:  "https://images.unsplash.com/photo-1512100356356-de1b84283e18?w=1200&q=90",
+    tags: ["backstage", "maquillage", "coulisses"]
+  },
+  {
+    id: 20, type: "photo", category: "Coulisses",
+    title: "Répétition privée · Studio à 6h du matin",
+    date: "Nov 2024", popularity: 78,
+    thumbUrl: "https://images.unsplash.com/photo-1545389336-cf090694435e?w=600&q=75",
+    fullUrl:  "https://images.unsplash.com/photo-1545389336-cf090694435e?w=1200&q=90",
+    tags: ["répétition", "studio", "coulisses"]
+  },
+  {
+    id: 21, type: "video", category: "Coulisses",
+    title: "Vlog coulisses · Festival préparation",
+    date: "Oct 2024", popularity: 86,
+    thumbUrl: "https://images.unsplash.com/photo-1478737270197-f1c5c0c59f21?w=600&q=75",
+    videoEmbedUrl: "https://www.youtube.com/embed/YOUTUBE_ID_BTS_1?autoplay=1",
+    tags: ["vlog", "coulisses", "festival"]
+  },
+  {
+    id: 22, type: "photo", category: "Coulisses",
+    title: "Entre amis · Après-show",
+    date: "Sep 2024", popularity: 77,
+    thumbUrl: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=75",
+    fullUrl:  "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200&q=90",
+    tags: ["amis", "après-show", "coulisses"]
+  },
+  {
+    id: 23, type: "photo", category: "Coulisses",
+    title: "Stretching matinal · Routine quotidienne",
+    date: "Août 2024", popularity: 70,
+    thumbUrl: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=75",
+    fullUrl:  "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1200&q=90",
+    tags: ["stretching", "routine", "coulisses"]
+  },
+  {
+    id: 24, type: "photo", category: "Danse",
+    title: "Portrait artistique · Studio pro",
+    date: "Juil 2024", popularity: 93,
+    thumbUrl: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=600&q=75",
+    fullUrl:  "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=1200&q=90",
+    tags: ["portrait", "artistique", "studio"]
+  },
+];
+
+// ─── STATE ───────────────────────────────────────────────
+let activeFilter = "all";
+let searchQuery = "";
+let sortMode = "recent";
+let displayedCount = 0;
+let filteredItems = [];
+let currentLbIndex = 0;
+let favorites = JSON.parse(localStorage.getItem('cf_favorites') || '[]');
+
+// ─── INIT ─────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  initStats();
+  showSkeletons();
+  setTimeout(() => {
+    hideSkeletons();
+    applyFilters();
+    initScroll();
+    initReveal();
+    initNavbar();
+    initMenuToggle();
+  }, 800);
+
+  document.getElementById('search-input').addEventListener('input', e => {
+    searchQuery = e.target.value.toLowerCase();
+    applyFilters();
+  });
+  document.getElementById('sort-select').addEventListener('change', e => {
+    sortMode = e.target.value;
+    applyFilters();
+  });
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      activeFilter = chip.dataset.filter;
+      applyFilters();
+    });
+  });
+
+  // Close modals on backdrop
+  document.getElementById('lightbox').addEventListener('click', e => {
+    if (e.target === document.getElementById('lightbox')) closeLightbox();
+  });
+  document.getElementById('video-modal').addEventListener('click', e => {
+    if (e.target === document.getElementById('video-modal')) closeVideoModal();
+  });
+
+  // Keyboard nav
+  document.addEventListener('keydown', e => {
+    if (document.getElementById('lightbox').classList.contains('open')) {
+      if (e.key === 'ArrowRight') lbNav(1);
+      if (e.key === 'ArrowLeft') lbNav(-1);
+      if (e.key === 'Escape') closeLightbox();
+    }
+    if (document.getElementById('video-modal').classList.contains('open')) {
+      if (e.key === 'Escape') closeVideoModal();
+    }
+  });
+});
+
+// ─── STATS ───────────────────────────────────────────────
+function initStats() {
+  const photos = galleryItems.filter(i => i.type === 'photo').length;
+  const videos = galleryItems.filter(i => i.type === 'video').length;
+  const events = galleryItems.filter(i => i.category === 'Evenement').length;
+  animateCount('photos-count', photos);
+  animateCount('videos-count', videos);
+  animateCount('events-count', events);
+}
+function animateCount(id, target) {
+  const el = document.getElementById(id);
+  let start = 0;
+  const step = Math.ceil(target / 30);
+  const timer = setInterval(() => {
+    start = Math.min(start + step, target);
+    el.textContent = start;
+    if (start >= target) clearInterval(timer);
+  }, 40);
+}
+
+// ─── SKELETONS ───────────────────────────────────────────
+function showSkeletons() {
+  const grid = document.getElementById('skeleton-grid');
+  const heights = [200,280,180,240,300,200,260,180,220,270,190,250];
+  grid.innerHTML = heights.map(h => `<div class="skeleton" style="height:${h}px;"></div>`).join('');
+}
+function hideSkeletons() {
+  document.getElementById('skeleton-grid').style.display = 'none';
+  document.getElementById('gallery-grid').style.display = '';
+}
+
+// ─── FILTER + SORT ────────────────────────────────────────
+function applyFilters() {
+  filteredItems = galleryItems.filter(item => {
+    const matchFilter =
+      activeFilter === 'all' ||
+      (activeFilter === 'video' && item.type === 'video') ||
+      item.category === activeFilter;
+    const matchSearch =
+      !searchQuery ||
+      item.title.toLowerCase().includes(searchQuery) ||
+      (item.tags && item.tags.some(t => t.toLowerCase().includes(searchQuery))) ||
+      item.category.toLowerCase().includes(searchQuery);
+    return matchFilter && matchSearch;
+  });
+
+  if (sortMode === 'popular') filteredItems.sort((a,b) => (b.popularity||0) - (a.popularity||0));
+  else if (sortMode === 'az') filteredItems.sort((a,b) => a.title.localeCompare(b.title));
+  else filteredItems.sort((a,b) => (b.id - a.id));
+
+  displayedCount = 0;
+  document.getElementById('gallery-grid').innerHTML = '';
+  renderItems();
+  updateResultCount();
+}
+
+function renderItems() {
+  const grid = document.getElementById('gallery-grid');
+  const noResults = document.getElementById('no-results');
+  const loadWrap = document.getElementById('load-more-wrap');
+
+  if (filteredItems.length === 0) {
+    noResults.classList.remove('hidden');
+    loadWrap.style.display = 'none';
+    return;
+  }
+  noResults.classList.add('hidden');
+
+  const chunk = filteredItems.slice(displayedCount, displayedCount + PAGE_SIZE);
+  chunk.forEach((item, i) => {
+    const el = createGalleryItem(item, i);
+    grid.appendChild(el);
+    setTimeout(() => el.classList.add('revealed'), 60 * i);
+  });
+  displayedCount += chunk.length;
+
+  const remaining = filteredItems.length - displayedCount;
+  if (remaining > 0) {
+    loadWrap.style.display = 'block';
+    document.getElementById('remaining-count').textContent = `(${remaining} restants)`;
+  } else {
+    loadWrap.style.display = 'none';
+  }
+}
+
+function loadMore() {
+  renderItems();
+}
+
+function clearFilters() {
+  document.getElementById('search-input').value = '';
+  searchQuery = '';
+  sortMode = 'recent';
+  document.getElementById('sort-select').value = 'recent';
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  document.querySelector('[data-filter="all"]').classList.add('active');
+  activeFilter = 'all';
+  applyFilters();
+}
+
+function updateResultCount() {
+  document.getElementById('result-count').textContent =
+    `${filteredItems.length} élément${filteredItems.length !== 1 ? 's' : ''} trouvé${filteredItems.length !== 1 ? 's' : ''}`;
+}
+
+// ─── CREATE ITEM ──────────────────────────────────────────
+function createGalleryItem(item, delay) {
+  const div = document.createElement('div');
+  div.className = 'gallery-item';
+  div.style.transitionDelay = `${delay * 0.05}s`;
+
+  const isVideo = item.type === 'video';
+  const isFav = favorites.includes(item.id);
+  const badgeClass = getBadgeClass(item.category, isVideo);
+  const badgeLabel = isVideo ? 'Vidéo' : item.category;
+
+  div.innerHTML = `
+    <div style="overflow:hidden;border-radius:0.75rem 0.75rem 0 0;position:relative;">
+      <img src="${item.thumbUrl}" alt="${item.title}" loading="lazy"
+           style="width:100%;display:block;max-height:280px;object-fit:cover;"
+           onerror="this.src='https://images.unsplash.com/photo-1518834107812-67b0b7c58434?w=400&q=60'" />
+      <div class="gallery-overlay">
+        <div class="overlay-icon">
+          <i class="fas fa-${isVideo ? 'play' : 'expand-alt'}"></i>
+        </div>
+      </div>
+      ${isVideo ? '<div style="position:absolute;top:0.5rem;left:0.5rem;background:rgba(239,68,68,0.85);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:white;"><i class="fas fa-play"></i></div>' : ''}
+    </div>
+    <div class="gallery-info">
+      <div class="flex items-center justify-between mb-1">
+        <span class="badge ${badgeClass}">${badgeLabel}</span>
+        <span style="font-size:0.65rem;color:rgba(232,232,238,0.4);">${item.date || ''}</span>
+      </div>
+      <h3 style="font-size:0.8rem;font-weight:600;color:#E8E8EE;line-height:1.3;margin-top:0.25rem;">${item.title}</h3>
+    </div>
+    <button class="fav-btn ${isFav ? 'active' : ''}" data-id="${item.id}" onclick="toggleFav(event, ${item.id})" aria-label="Favori">
+      <i class="fas fa-heart"></i>
+    </button>
+  `;
+
+  div.addEventListener('click', (e) => {
+    if (e.target.closest('.fav-btn')) return;
+    if (isVideo) openVideoModal(item.videoEmbedUrl);
+    else openLightbox(item);
+  });
+
+  return div;
+}
+
+function getBadgeClass(cat, isVideo) {
+  if (isVideo) return 'badge-video';
+  const map = { Danse:'badge-danse', Coaching:'badge-coaching', Evenement:'badge-evenement', Geomatique:'badge-geomatique', Coulisses:'badge-coulisses' };
+  return map[cat] || 'badge-danse';
+}
+
+// ─── LIGHTBOX ─────────────────────────────────────────────
+function openLightbox(item) {
+  currentLbIndex = filteredItems.findIndex(i => i.id === item.id);
+  renderLightbox();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function renderLightbox() {
+  const item = filteredItems[currentLbIndex];
+  if (!item || item.type === 'video') return;
+  document.getElementById('lb-img').src = item.fullUrl || item.thumbUrl;
+  document.getElementById('lb-img').alt = item.title;
+  document.getElementById('lb-title').textContent = item.title;
+  document.getElementById('lb-date').textContent = item.date || '';
+  const badgeEl = document.getElementById('lb-badge');
+  badgeEl.className = `badge mb-2 ${getBadgeClass(item.category, false)}`;
+  badgeEl.textContent = item.category;
+  const tagsEl = document.getElementById('lb-tags');
+  tagsEl.innerHTML = (item.tags || []).map(t => `<span style="font-size:0.7rem;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);color:#C9A84C;padding:0.15rem 0.5rem;border-radius:999px;">#${t}</span>`).join('');
+  document.getElementById('lb-counter').textContent = `${currentLbIndex + 1} / ${filteredItems.filter(i=>i.type==='photo').length}`;
+  const isFav = favorites.includes(item.id);
+  document.getElementById('lb-fav-btn').classList.toggle('active', isFav);
+}
+function lbNav(dir) {
+  let next = currentLbIndex + dir;
+  const photos = filteredItems;
+  while (next >= 0 && next < photos.length && photos[next].type === 'video') next += dir;
+  if (next >= 0 && next < photos.length) {
+    currentLbIndex = next;
+    renderLightbox();
+  }
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function lbShare() {
+  navigator.clipboard.writeText(window.location.href).then(() => {
+    showToast('Lien copié !');
+  });
+}
+function lbFav() {
+  const item = filteredItems[currentLbIndex];
+  if (!item) return;
+  toggleFavById(item.id);
+  const isFav = favorites.includes(item.id);
+  document.getElementById('lb-fav-btn').classList.toggle('active', isFav);
+}
+
+// ─── VIDEO MODAL ──────────────────────────────────────────
+function openVideoModal(url) {
+  document.getElementById('video-iframe').src = url;
+  document.getElementById('video-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeVideoModal() {
+  document.getElementById('video-iframe').src = '';
+  document.getElementById('video-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ─── FAVORITES ────────────────────────────────────────────
+function toggleFav(e, id) {
+  e.stopPropagation();
+  toggleFavById(id);
+  const btn = e.currentTarget;
+  btn.classList.toggle('active', favorites.includes(id));
+}
+function toggleFavById(id) {
+  const idx = favorites.indexOf(id);
+  if (idx === -1) favorites.push(id);
+  else favorites.splice(idx, 1);
+  localStorage.setItem('cf_favorites', JSON.stringify(favorites));
+}
+
+// ─── WHATSAPP ─────────────────────────────────────────────
+function sendWhatsApp() {
+  const name    = document.getElementById('form-name').value.trim() || 'Visiteur';
+  const type    = document.getElementById('form-type').value || 'Non précisé';
+  const date    = document.getElementById('form-date').value || 'date à définir';
+  const message = document.getElementById('form-message').value.trim() || '';
+  const text = encodeURIComponent(
+    `Bonjour Charlène, je vous contacte via votre galerie.\n\n` +
+    `👤 Nom : ${name}\n` +
+    `🎭 Prestation souhaitée : ${type}\n` +
+    `📅 Date envisagée : ${date}\n` +
+    `💬 Message : ${message || '—'}`
+  );
+  window.open(`https://wa.me/${phoneNumber}?text=${text}`, '_blank');
+}
+
+// ─── TOAST ────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.createElement('div');
+  t.textContent = msg;
+  Object.assign(t.style, {
+    position:'fixed', bottom:'8rem', left:'50%', transform:'translateX(-50%)',
+    background:'rgba(201,168,76,0.9)', color:'#0A0A0F', padding:'0.5rem 1.5rem',
+    borderRadius:'999px', fontSize:'0.8rem', fontWeight:'700', zIndex:'9999',
+    transition:'opacity 0.3s'
+  });
+  document.body.appendChild(t);
+  setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 2000);
+}
+
+// ─── SCROLL EFFECTS ───────────────────────────────────────
+function initScroll() {
+  const bar = document.getElementById('scroll-progress');
+  const backTop = document.getElementById('back-top');
+  window.addEventListener('scroll', () => {
+    const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+    bar.style.width = pct + '%';
+    backTop.classList.toggle('visible', window.scrollY > 300);
+  }, { passive: true });
+}
+
+// ─── NAVBAR ───────────────────────────────────────────────
+function initNavbar() {
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+}
+
+// ─── MOBILE MENU ──────────────────────────────────────────
+function initMenuToggle() {
+  const btn = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const icon = document.getElementById('menu-icon');
+  btn.addEventListener('click', () => {
+    menu.classList.toggle('open');
+    icon.className = menu.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
+  });
+}
+
+// ─── REVEAL ON SCROLL ─────────────────────────────────────
+function initReveal() {
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  els.forEach(el => io.observe(el));
+}
+</script>
+
+</body>
+</html>
