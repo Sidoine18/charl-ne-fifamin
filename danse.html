@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Danse | Charlène FIFAMIN KPATENON</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Charlène FIFAMIN KPATENON — Danseuse culturelle africaine, coach enfants et performeuse. Shows, ateliers et coaching à Cotonou et partout en Afrique." />
+  <meta property="og:title" content="Danse | Charlène FIFAMIN KPATENON" />
+  <meta property="og:description" content="Danser notre culture. Inspirer le monde. Shows, coaching enfants, ateliers culturels." />
+  <meta property="og:type" content="website" />
+  <!-- MODIFIER : og:image → votre vraie photo de couverture danse -->
+  <meta property="og:image" content="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=1200&q=80" />
+
+  <!-- Google Fonts : Cormorant Garamond + DM Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: { DEFAULT:'#C9A84C', light:'#E2C97E', dark:'#9B7B2E', subtle:'rgba(201,168,76,0.12)' },
+            noir: { DEFAULT:'#0A0A0A', soft:'#111111', card:'#141414', border:'rgba(201,168,76,0.18)' }
+          },
+          fontFamily: {
+            display: ['"Cormorant Garamond"','serif'],
+            body: ['"DM Sans"','sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ── Base ── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #0A0A0A; color: #f5f0e8;
+      font-family: 'DM Sans', sans-serif;
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+
+    /* ── Topographic BG ── */
+    .topo-bg { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+    .topo-bg svg { width: 100%; height: 100%; opacity: 0.055; }
+
+    /* ── Scroll progress bar ── */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; height: 2px; z-index: 1100;
+      background: linear-gradient(90deg, #C9A84C, #E2C97E, #C9A84C);
+      background-size: 200% auto;
+      width: 0%; transition: width 0.1s linear;
+      animation: shimmer 3s linear infinite;
+    }
+    @keyframes shimmer { to { background-position: 200% center; } }
+
+    /* ── Gold text ── */
+    .gold-text {
+      background: linear-gradient(135deg, #C9A84C 0%, #E2C97E 50%, #C9A84C 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: goldShimmer 4s ease infinite;
+    }
+    @keyframes goldShimmer { 0%,100%{background-position:0%} 50%{background-position:200%} }
+
+    /* ── Hero gradient ── */
+    .hero-gradient {
+      background:
+        radial-gradient(ellipse 80% 60% at 65% 35%, rgba(201,168,76,0.09) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 70% at 10% 80%, rgba(201,168,76,0.05) 0%, transparent 60%),
+        linear-gradient(180deg, #0A0A0A 0%, #0e0c08 100%);
+    }
+
+    /* ── Glow orb ── */
+    .glow-orb {
+      position: absolute; border-radius: 50%; filter: blur(90px);
+      pointer-events: none; animation: floatGlow 9s ease-in-out infinite;
+    }
+    @keyframes floatGlow {
+      0%,100%{transform:translateY(0) scale(1); opacity:.4}
+      50%{transform:translateY(-28px) scale(1.06); opacity:.75}
+    }
+
+    /* ── Navbar ── */
+    #navbar {
+      position: fixed; top: 2px; left: 0; right: 0; z-index: 1000;
+      transition: background .4s, box-shadow .4s;
+    }
+    #navbar.scrolled {
+      background: rgba(10,10,10,.93);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 1px 0 rgba(201,168,76,.14);
+    }
+    .nav-link {
+      position: relative; font-size: .8rem; font-weight: 500;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: rgba(245,240,232,.6); transition: color .3s;
+    }
+    .nav-link::after {
+      content:''; position:absolute; bottom:-4px; left:0; right:0;
+      height:1px; background:#C9A84C;
+      transform:scaleX(0); transform-origin:center;
+      transition:transform .3s ease;
+    }
+    .nav-link:hover, .nav-link.active { color:#E2C97E; }
+    .nav-link:hover::after, .nav-link.active::after { transform:scaleX(1); }
+
+    /* ── Buttons ── */
+    .btn-gold {
+      display:inline-flex; align-items:center; gap:.5rem;
+      background:linear-gradient(135deg,#C9A84C,#E2C97E,#C9A84C);
+      background-size:200% auto;
+      color:#0A0A0A; font-weight:600; font-size:.8rem;
+      letter-spacing:.06em; text-transform:uppercase;
+      padding:.72rem 1.6rem; border-radius:2px;
+      transition:background-position .4s, transform .2s, box-shadow .3s;
+      box-shadow: 0 4px 20px rgba(201,168,76,.2);
+    }
+    .btn-gold:hover { background-position:right center; transform:translateY(-2px); box-shadow:0 8px 30px rgba(201,168,76,.35); }
+    .btn-outline {
+      display:inline-flex; align-items:center; gap:.5rem;
+      border:1px solid rgba(201,168,76,.45); color:#C9A84C;
+      font-weight:500; font-size:.8rem; letter-spacing:.06em; text-transform:uppercase;
+      padding:.72rem 1.6rem; border-radius:2px;
+      transition:background .3s, transform .2s, box-shadow .3s;
+    }
+    .btn-outline:hover { background:rgba(201,168,76,.1); transform:translateY(-2px); box-shadow:0 8px 20px rgba(201,168,76,.15); }
+    .btn-ghost {
+      display:inline-flex; align-items:center; gap:.5rem;
+      color:rgba(245,240,232,.7); font-weight:500; font-size:.8rem;
+      letter-spacing:.06em; text-transform:uppercase;
+      padding:.72rem 1.6rem; border-radius:2px;
+      border:1px solid rgba(255,255,255,.1);
+      transition:color .3s, border-color .3s, transform .2s;
+    }
+    .btn-ghost:hover { color:#f5f0e8; border-color:rgba(255,255,255,.25); transform:translateY(-2px); }
+
+    /* ── Cards ── */
+    .card-premium {
+      background:#141414; border:1px solid rgba(201,168,76,.12); border-radius:4px;
+      transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+    }
+    .card-premium:hover {
+      transform:translateY(-6px);
+      box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 0 1px rgba(201,168,76,.25);
+      border-color:rgba(201,168,76,.3);
+    }
+
+    /* ── Labels ── */
+    .section-eyebrow { font-size:.72rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:#C9A84C; }
+    .section-title { font-family:'Cormorant Garamond',serif; font-weight:600; line-height:1.08; }
+    .gold-divider { width:48px; height:1px; background:linear-gradient(90deg,transparent,#C9A84C,transparent); margin:1.25rem 0; }
+
+    /* ── Gallery card ── */
+    .style-card { position:relative; overflow:hidden; border-radius:4px; aspect-ratio:1; }
+    .style-card img { width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
+    .style-card:hover img { transform:scale(1.08); }
+    .style-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to top, rgba(0,0,0,.88) 0%, rgba(0,0,0,.2) 60%, transparent 100%);
+      display:flex; align-items:flex-end; padding:1.25rem;
+      opacity:0; transition:opacity .35s;
+    }
+    .style-card:hover .style-overlay { opacity:1; }
+    .style-overlay-always {
+      position:absolute; inset:0;
+      background:linear-gradient(to top, rgba(0,0,0,.8) 0%, transparent 55%);
+      display:flex; align-items:flex-end; padding:1rem;
+    }
+
+    /* ── Timeline ── */
+    .timeline-line {
+      position:absolute; left:50%; top:0; bottom:0;
+      width:1px; background:linear-gradient(to bottom, transparent, rgba(201,168,76,.3), transparent);
+      transform:translateX(-50%);
+    }
+
+    /* ── FAQ accordion ── */
+    .faq-answer {
+      max-height:0; overflow:hidden;
+      transition:max-height .4s cubic-bezier(.4,0,.2,1), padding .3s ease;
+    }
+    .faq-answer.open { max-height:300px; }
+    .faq-item { border-bottom:1px solid rgba(201,168,76,.1); }
+    .faq-btn { width:100%; text-align:left; background:transparent; border:none; cursor:pointer; }
+    .faq-icon { transition:transform .35s ease; }
+    .faq-item.open .faq-icon { transform:rotate(45deg); }
+
+    /* ── Form inputs ── */
+    .form-input {
+      width:100%; background:rgba(255,255,255,.04);
+      border:1px solid rgba(201,168,76,.2); color:#f5f0e8;
+      padding:.85rem 1rem; border-radius:2px;
+      font-family:'DM Sans',sans-serif; font-size:.9rem;
+      outline:none; transition:border-color .3s, background .3s;
+    }
+    .form-input::placeholder { color:rgba(245,240,232,.3); }
+    .form-input:focus { border-color:rgba(201,168,76,.6); background:rgba(201,168,76,.05); }
+    select.form-input option { background:#141414; }
+
+    /* ── Back to top ── */
+    #back-to-top {
+      position:fixed; bottom:2rem; right:2rem; z-index:900;
+      width:44px; height:44px; background:rgba(201,168,76,.9);
+      color:#0A0A0A; border-radius:2px;
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; opacity:0; transform:translateY(20px);
+      transition:opacity .3s, transform .3s, background .2s;
+      box-shadow:0 4px 20px rgba(201,168,76,.3); border:none;
+    }
+    #back-to-top.visible { opacity:1; transform:translateY(0); }
+    #back-to-top:hover { background:#E2C97E; }
+
+    /* ── Mobile menu ── */
+    #mobile-menu {
+      display:none; position:fixed; inset:0; z-index:999;
+      background:rgba(10,10,10,.98);
+      flex-direction:column; align-items:center; justify-content:center; gap:2rem;
+    }
+    #mobile-menu.open { display:flex; }
+    .mobile-nav-link {
+      font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:600;
+      color:rgba(245,240,232,.8); transition:color .3s;
+    }
+    .mobile-nav-link:hover, .mobile-nav-link.active { color:#C9A84C; }
+
+    /* ── Cursor glow (desktop only) ── */
+    @media (hover:hover) and (pointer:fine) {
+      .cursor-glow-area { cursor:none; }
+      #cursor-dot {
+        position:fixed; pointer-events:none; z-index:9999;
+        width:8px; height:8px; background:#C9A84C; border-radius:50%;
+        transform:translate(-50%,-50%); transition:transform .1s, opacity .2s;
+      }
+      #cursor-ring {
+        position:fixed; pointer-events:none; z-index:9998;
+        width:32px; height:32px;
+        border:1px solid rgba(201,168,76,.4); border-radius:50%;
+        transform:translate(-50%,-50%);
+        transition:left .08s ease-out, top .08s ease-out, width .2s, height .2s, opacity .2s;
+      }
+    }
+
+    /* ── Prefers reduced motion ── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration:.01ms !important; animation-iteration-count:1 !important;
+        transition-duration:.01ms !important;
+      }
+      [data-aos] { opacity:1 !important; transform:none !important; }
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width:4px; }
+    ::-webkit-scrollbar-track { background:#0A0A0A; }
+    ::-webkit-scrollbar-thumb { background:rgba(201,168,76,.4); border-radius:2px; }
+  </style>
+</head>
+<body class="cursor-glow-area">
+
+<!-- Cursor glow (desktop) -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<!-- Scroll progress bar -->
+<div id="progress-bar"></div>
+
+<!-- Back to top -->
+<button id="back-to-top" aria-label="Retour en haut" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i class="fa-solid fa-chevron-up text-sm"></i>
+</button>
+
+<!-- ════ MOBILE MENU ════ -->
+<div id="mobile-menu" role="dialog" aria-modal="true">
+  <button id="mobile-close" class="absolute top-6 right-6 text-2xl" style="color:#C9A84C;" aria-label="Fermer">
+    <i class="fa-solid fa-xmark"></i>
+  </button>
+  <a href="index.html"       class="mobile-nav-link" onclick="closeMobileMenu()">Accueil</a>
+  <a href="danse.html"       class="mobile-nav-link active" onclick="closeMobileMenu()">Danse</a>
+  <a href="geomatique.html"  class="mobile-nav-link" onclick="closeMobileMenu()">Géomatique</a>
+  <a href="services.html"    class="mobile-nav-link" onclick="closeMobileMenu()">Services</a>
+  <a href="galerie.html"     class="mobile-nav-link" onclick="closeMobileMenu()">Galerie</a>
+  <a href="#contact"         class="mobile-nav-link" onclick="closeMobileMenu()">Contact</a>
+  <!-- MODIFIER : remplacez WA_NUMBER par le vrai numéro -->
+  <a href="https://wa.me/2290143386670?text=Bonjour%20Charlène,%20je%20souhaite%20un%20devis." target="_blank" rel="noopener"
+     class="btn-gold mt-4"><i class="fa-brands fa-whatsapp"></i> Réserver</a>
+</div>
+
+<!-- ════ NAVBAR ════ -->
+<nav id="navbar" aria-label="Navigation principale">
+  <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="index.html" class="flex items-center gap-3 group">
+      <div class="w-9 h-9 border border-gold/40 rounded-sm flex items-center justify-center group-hover:border-gold/80 transition-colors">
+        <span class="gold-text font-display font-bold text-base leading-none">CF</span>
+      </div>
+      <div class="hidden sm:block">
+        <p class="text-[.7rem] tracking-[.18em] uppercase leading-none font-body" style="color:rgba(201,168,76,.7)">Charlène</p>
+        <p class="text-xs font-semibold tracking-widest uppercase leading-none mt-0.5" style="color:rgba(245,240,232,.8)">FIFAMIN KPATENON</p>
+      </div>
+    </a>
+    <!-- Desktop links -->
+    <ul class="hidden lg:flex items-center gap-8">
+      <li><a href="index.html"      class="nav-link">Accueil</a></li>
+      <li><a href="danse.html"      class="nav-link active">Danse</a></li>
+      <li><a href="geomatique.html" class="nav-link">Géomatique</a></li>
+      <li><a href="services.html"   class="nav-link">Services</a></li>
+      <li><a href="galerie.html"    class="nav-link">Galerie</a></li>
+      <li><a href="#contact"        class="nav-link">Contact</a></li>
+    </ul>
+    <!-- CTA + hamburger -->
+    <div class="flex items-center gap-3">
+      <!-- MODIFIER : WA_NUMBER → vrai numéro WhatsApp -->
+      <a href="https://wa.me/2290143386670?text=Bonjour%20Charlène,%20je%20souhaite%20un%20devis." target="_blank" rel="noopener"
+         class="btn-gold hidden md:inline-flex text-[.75rem] py-2.5 px-4">
+        <i class="fa-brands fa-whatsapp"></i> Réserver / Devis
+      </a>
+      <button id="hamburger" class="lg:hidden p-1 transition-colors" style="color:rgba(245,240,232,.7);" aria-label="Menu">
+        <i class="fa-solid fa-bars text-lg"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════
+     1. HERO DANSE
+════════════════════════════════════════════ -->
+<section id="hero" class="relative min-h-screen flex items-center hero-gradient overflow-hidden pt-20">
+  <!-- Topo background -->
+  <div class="topo-bg">
+    <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs><style>.t{fill:none;stroke:#C9A84C;stroke-width:.7}</style></defs>
+      <ellipse class="t" cx="600" cy="400" rx="540" ry="330"/>
+      <ellipse class="t" cx="600" cy="400" rx="470" ry="278"/>
+      <ellipse class="t" cx="600" cy="400" rx="400" ry="228"/>
+      <ellipse class="t" cx="600" cy="400" rx="330" ry="180"/>
+      <ellipse class="t" cx="600" cy="400" rx="260" ry="135"/>
+      <ellipse class="t" cx="600" cy="400" rx="190" ry="94"/>
+      <ellipse class="t" cx="600" cy="400" rx="120" ry="58"/>
+      <path class="t" d="M0,290 Q200,230 400,290 Q600,350 800,270 Q1000,190 1200,260"/>
+      <path class="t" d="M0,460 Q250,390 500,450 Q750,510 1000,420 Q1100,390 1200,440"/>
+      <path class="t" d="M0,560 Q300,500 600,550 Q900,600 1200,530"/>
+      <path class="t" d="M0,170 Q350,120 700,175 Q950,215 1200,155"/>
+    </svg>
+  </div>
+  <!-- Glow orbs -->
+  <div class="glow-orb" style="width:420px;height:420px;background:rgba(201,168,76,.07);top:-5%;right:2%;animation-delay:0s"></div>
+  <div class="glow-orb" style="width:280px;height:280px;background:rgba(201,168,76,.05);bottom:8%;left:-4%;animation-delay:4s"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-5 py-24 grid lg:grid-cols-2 gap-14 items-center w-full">
+    <!-- Left -->
+    <div>
+      <!-- Label -->
+      <div class="flex items-center gap-3 mb-6" data-aos="fade-up" data-aos-duration="700">
+        <div class="w-8 h-px" style="background:rgba(201,168,76,.6)"></div>
+        <span class="section-eyebrow">Danse culturelle • Coaching • Performances</span>
+      </div>
+      <!-- H1 -->
+      <h1 class="section-title text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-[1.05]"
+          data-aos="fade-up" data-aos-duration="700" data-aos-delay="100">
+        Danser notre<br/>
+        <em class="gold-text not-italic">culture.</em><br/>
+        Inspirer le<br/>
+        <span style="-webkit-text-fill-color:transparent;background:linear-gradient(135deg,#fff 30%,rgba(201,168,76,.6));-webkit-background-clip:text;background-clip:text;">monde.</span>
+      </h1>
+      <!-- Storytelling -->
+      <p class="text-base md:text-lg leading-relaxed max-w-lg mb-8 font-light" style="color:rgba(245,240,232,.6)"
+         data-aos="fade-up" data-aos-duration="700" data-aos-delay="200">
+        Depuis la 4ème, la danse est bien plus qu'une passion pour Charlène — c'est un langage. Performer sur scène, coacher des enfants, transmettre l'âme de nos traditions culturelles africaines à travers chaque mouvement : voilà sa mission.
+      </p>
+      <!-- CTAs -->
+      <div class="flex flex-wrap gap-3" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
+        <!-- MODIFIER : WA_NUMBER -->
+        <a href="https://wa.me/2290143386670?text=Bonjour%20Charlène,%20je%20souhaite%20réserver%20une%20prestation%20de%20danse." target="_blank" rel="noopener" class="btn-gold">
+          <i class="fa-brands fa-whatsapp"></i> Réserver une prestation
+        </a>
+        <a href="galerie.html" class="btn-outline">
+          <i class="fa-regular fa-images"></i> Voir la galerie
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: hero image -->
+    <div class="flex justify-center lg:justify-end" data-aos="fade-left" data-aos-duration="900" data-aos-delay="150">
+      <div style="width:min(22rem,90vw);aspect-ratio:3/4;border-radius:4px;overflow:hidden;border:1px solid rgba(201,168,76,.22);box-shadow:0 30px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(201,168,76,.1);position:relative;">
+        <!-- MODIFIER : remplacez par la vraie photo de Charlène en danse -->
+        <img src="images/geomatique.jpg"
+             alt="Charlène FIFAMIN KPATENON — performance de danse culturelle"
+             loading="lazy" style="width:100%;height:100%;object-fit:cover;" />
+        <!-- Overlay premium -->
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.85) 0%,rgba(0,0,0,.1) 55%,transparent 100%);"></div>
+        <!-- Badge -->
+        <div style="position:absolute;bottom:1.5rem;left:1.5rem;right:1.5rem;">
+          <span class="section-eyebrow block mb-1">Danseuse culturelle</span>
+          <p class="font-display text-xl font-semibold text-white leading-tight">Charlène FIFAMIN KPATENON</p>
+        </div>
+        <!-- Decorative corner -->
+        <div style="position:absolute;top:1rem;right:1rem;width:28px;height:28px;border-top:1px solid rgba(201,168,76,.5);border-right:1px solid rgba(201,168,76,.5);border-radius:0 4px 0 0;"></div>
+        <div style="position:absolute;bottom:1rem;left:1rem;width:28px;height:28px;border-bottom:1px solid rgba(201,168,76,.5);border-left:1px solid rgba(201,168,76,.5);border-radius:0 0 0 4px;"></div>
+      </div>
+    </div>
+  </div>
+  <!-- Scroll indicator -->
+  <div style="position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:.35;">
+    <span style="color:rgba(245,240,232,.5);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;">Scroll</span>
+    <div style="width:1px;height:40px;background:linear-gradient(to bottom,rgba(201,168,76,.6),transparent);"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     2. PRESTATIONS
+════════════════════════════════════════════ -->
+<section id="prestations" class="py-28 px-5 max-w-7xl mx-auto">
+  <div class="text-center mb-16">
+    <p class="section-eyebrow mb-4" data-aos="fade-up">Ce que je propose</p>
+    <h2 class="section-title text-4xl md:text-5xl text-white" data-aos="fade-up" data-aos-delay="100">
+      Mes <span class="gold-text">Prestations</span>
+    </h2>
+    <div class="gold-divider mx-auto" data-aos="fade-up" data-aos-delay="150"></div>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-7">
+
+    <!-- Card 1 : Shows & Événements -->
+    <div class="card-premium p-8 flex flex-col" data-aos="fade-up" data-aos-delay="0">
+      <div class="w-12 h-12 rounded-sm flex items-center justify-center mb-5"
+           style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);">
+        <i class="fa-solid fa-star text-gold text-lg"></i>
+      </div>
+      <h3 class="font-display text-2xl font-semibold text-white mb-3">Shows & Événements</h3>
+      <p style="color:rgba(245,240,232,.5)" class="text-sm leading-relaxed mb-5 flex-1">
+        Performances scéniques de danse culturelle africaine pour galas, festivals, mariages, soirées d'entreprise et événements institutionnels. Une présence qui marque les esprits.
+      </p>
+      <div class="mb-6">
+        <p class="section-eyebrow mb-3 text-[.65rem]">Ce que tu obtiens</p>
+        <ul class="space-y-2">
+          <li class="flex items-start gap-2 text-sm" style="color:rgba(245,240,232,.6)">
+            <i class="fa-solid fa-check text-gold/70 mt-0.5 text-xs flex-shrink-0"></i>
+            Chorégraphie sur mesure selon le thème
+          </li>
+          <li class="flex items-start gap-2 text-sm" style="color:rgba(245,240,232,.6)">
+            <i class="fa-solid fa-check text-gold/70 mt-0.5 text-xs flex-shrink-0"></i>
+            Costumes traditionnels authentiques
+          </li>
+          <li class="flex items-start gap-2 text-sm" style="color:rgba(245,240,232,.6)">
+            <i class="fa-solid fa-check text-gold/70 mt-0.5 text-xs flex-shrink-0"></i>
+            Durée adaptée à votre programme
+          </li>
+          <li class="flex items-start gap-2 text-sm" style="color:rgba(245,240,232,.6)">
+            <i class="fa-solid fa-check text-gold/70 mt-0.5 text-xs flex-shrink-0"></i>
+            Possibilité groupe de 2 à 10 danseuses
+          </li>
+        </ul>
+      </div>
+      <!-- MODIFIER : WA_NUMBER -->
+      <a href="https://wa.me/2290143386670?text=Bonjour%20Charlène,%20je%20souhaite%20un%20devis%20pour%20un%20show." target="_blank" rel="noopener" class="btn-gold justify-center text-center">
+        <i class="fa-brands fa-whatsapp"></i> Demander un devis
+      </a>
+    </div>
+
+    <!-- Card 2 : Coaching Enfants (mis en avant) -->
+    <div class="card-premium p-8 flex flex-col relative" data-aos="fade-up" data-aos-delay="100"
+         style="border-color:rgba(201,168,76,.3);box-shadow:0 0 50px rgba(201,168,76,.07);">
+      <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);">
+        <span style="background:#C9A84C;color:#0A0A0A;font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.3rem .9rem;border-radius:2px;">Le plus demandé</span>
+      </div>
+      <div class="w-12 h-12 rounded-sm flex items-center justify-center mb-5"
+           style="background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.35);">
+        <i class="fa-solid fa-child-reaching text-gold text-lg"></i>
+      </div>
+      <h3 class="font-display text-2xl font-semibold text-white mb-3">Coaching Danse Enfants</h3>
+      <p style="color:rgba(245,240,232,.5)" class="text-sm leading-relaxed mb-5 flex-1">
+        Ateliers hebdomadaires pour enfants de 5 à 14 ans. Développement de la confiance, de la coordination et de l'identité culturelle à travers la danse. En groupe ou individuel.
+      </p>
+      <div class="mb-6">
+        <p class="section-eyebrow mb-3 text-[.65rem]">Ce que tu obtiens</p>
+        <ul class="space-y-2">
+          <li class="flex items-start gap-2 text-sm" style="color:rgba(245,240,232,.6)">
+            <i class="fa-solid fa-check text-gold/70 mt-0.5 text-xs flex-shrink-0"></i>
+            Séances de 1h ou 1h30 par semaine
+          </li>
+          <li class="flex items-start gap-2 text-sm" style="color:rgba(245,240,232,.6)">
+            <i class="fa-solid fa-check text-gold/70 mt-0.5 text-xs flex-shrink-0"></i>
+            Programme progressif adapté à l'âge
+          </li>
+          <li class="flex items-start gap-2 text-sm" style="color:rgba(245,240,232,.6)">
+            <i class="fa-solid fa-check text-gold/70 mt-0.5 text-xs flex-shrink-0"></i>
+            Bilan mensuel partagé avec les parents
+          </li>
+          <li class="flex items-start gap-2 text-sm" style="color:rgba(245,240,232,.6)">
+            <i class="fa-solid fa-check text-gold/70 mt-0.5 text-xs flex-shrink-0"></i>
+            Showcase de fin de session
+          </li>
+        </ul>
+      </div>
+      <a href="https://wa.me/2290143386670?text=Bonjour%20Charlène,%20je%20souhaite%20inscrire%20mon%20enfant%20au%20coaching%20danse." target="_blank" rel="noopener" class="btn-gold justify-center text-center">
+        <i class="fa-brands fa-whatsapp"></i> Demander un devis
+      </a>
+    </div>
+
+    <!-- Card 3 : Ateliers Culturels -->
+    <div class="card-premium p-8 flex flex-col" data-aos="fade-up" data-aos-delay="200">
+      <div class="w-12 h-12 rounded-sm flex items-center justify-center mb-5"
+           style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);">
+        <i class="fa-solid fa-hands-praying text-gold text-lg"></i>
+      </div>
+      <h3 class="font-display text-2xl font-semibold text-white mb-3">Ateliers Culturels</h3>
+      <p style="color:rgba(245,240,232,.5)" class="text-sm leading-relaxed mb-5 flex-1">
+        Immersion dans le patrimoine africain à travers la danse, le chant et le costume. Pour écoles, entreprises, ONG, festivals et structures culturelles souhaitant valoriser l'identité culturelle.
+      </p>
+      <div class="mb-6">
+        <p class="section-eyebrow mb-3 text-[.65rem]">Ce que tu obtiens</p>
+        <ul class="space-y-2">
+          <li class="flex items-start gap-2 text-sm" style="color:rgba(245,240,232,.6)">
+            <i class="fa-solid fa-check text-gold/70 mt-0.5 text-xs flex-shrink-0"></i>
+            Introduction culturelle + historique
+          </li>
+          <li class="flex items-start gap-2 text-sm" style="color:rgba(245,240,232,.6)">
+            <i class="fa-solid fa-check text-gold/70 mt-0.5 text-xs flex-shrink-0"></i>
+            Atelier pratique danse & percussion
+          </li>
+          <li class="flex items-start gap-2 text-sm" style="color:rgba(245,240,232,.6)">
+            <i class="fa-solid fa-check text-gold/70 mt-0.5 text-xs flex-shrink-0"></i>
+            Format demi-journée ou journée entière
+          </li>
+          <li class="flex items-start gap-2 text-sm" style="color:rgba(245,240,232,.6)">
+            <i class="fa-solid fa-check text-gold/70 mt-0.5 text-xs flex-shrink-0"></i>
+            Jusqu'à 40 participants simultanément
+          </li>
+        </ul>
+      </div>
+      <a href="https://wa.me/2290143386670?text=Bonjour%20Charlène,%20je%20souhaite%20organiser%20un%20atelier%20culturel." target="_blank" rel="noopener" class="btn-gold justify-center text-center">
+        <i class="fa-brands fa-whatsapp"></i> Demander un devis
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     3. RÉPERTOIRE / STYLES
+════════════════════════════════════════════ -->
+<section id="repertoire" class="py-28 px-5" style="background:linear-gradient(180deg,transparent 0%,rgba(201,168,76,.03) 50%,transparent 100%);">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <p class="section-eyebrow mb-4" data-aos="fade-up">Univers artistique</p>
+      <h2 class="section-title text-4xl md:text-5xl text-white" data-aos="fade-up" data-aos-delay="100">
+        Styles & <span class="gold-text">Répertoire</span>
+      </h2>
+      <div class="gold-divider mx-auto" data-aos="fade-up" data-aos-delay="150"></div>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+
+      <!-- MODIFIER : remplacez chaque URL par les vraies photos de Charlène -->
+      <div class="style-card" data-aos="fade-up" data-aos-delay="0">
+        <img src="https://images.unsplash.com/photo-1535525153412-5a42439a210d?w=500&q=75" alt="Danse traditionnelle africaine" loading="lazy"/>
+        <div class="style-overlay-always">
+          <div>
+            <p class="text-gold/80 text-xs tracking-widest uppercase mb-0.5">Pilier 01</p>
+            <p class="font-display text-xl font-semibold text-white">Traditionnel</p>
+          </div>
+        </div>
+        <div class="style-overlay">
+          <p class="text-white/70 text-sm">Danses traditionnelles béninoises et d'Afrique de l'Ouest, ancrées dans les rituels et fêtes coutumières.</p>
+        </div>
+      </div>
+
+      <div class="style-card" data-aos="fade-up" data-aos-delay="60">
+        <img src="https://images.unsplash.com/photo-1499334758287-dc8133b315e9?w=500&q=75" alt="Danse fusion africaine moderne" loading="lazy"/>
+        <div class="style-overlay-always">
+          <div>
+            <p class="text-gold/80 text-xs tracking-widest uppercase mb-0.5">Pilier 02</p>
+            <p class="font-display text-xl font-semibold text-white">Fusion Moderne</p>
+          </div>
+        </div>
+        <div class="style-overlay">
+          <p class="text-white/70 text-sm">Alliance entre les bases traditionnelles et les courants contemporains pour un résultat scénique percutant.</p>
+        </div>
+      </div>
+
+      <div class="style-card" data-aos="fade-up" data-aos-delay="120">
+        <img src="https://images.unsplash.com/photo-1565992441121-4367b2138593?w=500&q=75" alt="Danse et percussion africaine" loading="lazy"/>
+        <div class="style-overlay-always">
+          <div>
+            <p class="text-gold/80 text-xs tracking-widest uppercase mb-0.5">Pilier 03</p>
+            <p class="font-display text-xl font-semibold text-white">Percussion & Rythme</p>
+          </div>
+        </div>
+        <div class="style-overlay">
+          <p class="text-white/70 text-sm">Le corps comme instrument de percussion : tempos africains, polyrythmie et dialogue avec les tam-tams.</p>
+        </div>
+      </div>
+
+      <div class="style-card" data-aos="fade-up" data-aos-delay="0">
+        <img src="https://images.unsplash.com/photo-1519925610903-381054cc2a1c?w=500&q=75" alt="Chorégraphie scolaire pour enfants" loading="lazy"/>
+        <div class="style-overlay-always">
+          <div>
+            <p class="text-gold/80 text-xs tracking-widest uppercase mb-0.5">Pilier 04</p>
+            <p class="font-display text-xl font-semibold text-white">Chorégraphie Scolaire</p>
+          </div>
+        </div>
+        <div class="style-overlay">
+          <p class="text-white/70 text-sm">Créations adaptées aux enfants pour galas scolaires, compétitions et événements éducatifs.</p>
+        </div>
+      </div>
+
+      <div class="style-card" data-aos="fade-up" data-aos-delay="60">
+        <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=500&q=75" alt="Costume et parure africaine de scène" loading="lazy"/>
+        <div class="style-overlay-always">
+          <div>
+            <p class="text-gold/80 text-xs tracking-widest uppercase mb-0.5">Pilier 05</p>
+            <p class="font-display text-xl font-semibold text-white">Costume & Mise en scène</p>
+          </div>
+        </div>
+        <div class="style-overlay">
+          <p class="text-white/70 text-sm">Chaque tenue est choisie pour raconter une histoire — parures, tissus, accessoires, couleurs symboliques.</p>
+        </div>
+      </div>
+
+      <div class="style-card" data-aos="fade-up" data-aos-delay="120">
+        <img src="https://images.unsplash.com/photo-1571601556699-4c59f1dcdfbe?w=500&q=75" alt="Atelier danse et transmission culturelle" loading="lazy"/>
+        <div class="style-overlay-always">
+          <div>
+            <p class="text-gold/80 text-xs tracking-widest uppercase mb-0.5">Pilier 06</p>
+            <p class="font-display text-xl font-semibold text-white">Transmission</p>
+          </div>
+        </div>
+        <div class="style-overlay">
+          <p class="text-white/70 text-sm">Partager le savoir, faire aimer la culture africaine aux nouvelles générations : le cœur du projet artistique de Charlène.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     4. PROCESS (TIMELINE)
+════════════════════════════════════════════ -->
+<section id="process" class="py-28 px-5 max-w-5xl mx-auto">
+  <div class="text-center mb-16">
+    <p class="section-eyebrow mb-4" data-aos="fade-up">De A à Z</p>
+    <h2 class="section-title text-4xl md:text-5xl text-white" data-aos="fade-up" data-aos-delay="100">
+      Comment ça <span class="gold-text">se passe ?</span>
+    </h2>
+    <div class="gold-divider mx-auto" data-aos="fade-up" data-aos-delay="150"></div>
+  </div>
+
+  <!-- Steps -->
+  <div class="grid md:grid-cols-4 gap-6">
+
+    <div class="card-premium p-6 text-center" data-aos="fade-up" data-aos-delay="0">
+      <div class="w-14 h-14 rounded-sm flex items-center justify-center mx-auto mb-4"
+           style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);">
+        <i class="fa-brands fa-whatsapp text-gold text-2xl"></i>
+      </div>
+      <div class="font-display text-4xl font-semibold mb-2" style="color:rgba(201,168,76,.25)">01</div>
+      <h3 class="font-display text-xl font-semibold text-white mb-2">Contact</h3>
+      <p class="text-sm leading-relaxed" style="color:rgba(245,240,232,.45)">
+        Tu m'envoies un message WhatsApp ou un email avec ta demande. Réponse sous 24h garantie.
+      </p>
+    </div>
+
+    <div class="card-premium p-6 text-center" data-aos="fade-up" data-aos-delay="100">
+      <div class="w-14 h-14 rounded-sm flex items-center justify-center mx-auto mb-4"
+           style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);">
+        <i class="fa-solid fa-clipboard-list text-gold text-2xl"></i>
+      </div>
+      <div class="font-display text-4xl font-semibold mb-2" style="color:rgba(201,168,76,.25)">02</div>
+      <h3 class="font-display text-xl font-semibold text-white mb-2">Brief</h3>
+      <p class="text-sm leading-relaxed" style="color:rgba(245,240,232,.45)">
+        On échange sur tes besoins : thème, date, lieu, budget, nombre de participants. Je te propose un programme sur mesure.
+      </p>
+    </div>
+
+    <div class="card-premium p-6 text-center" data-aos="fade-up" data-aos-delay="200">
+      <div class="w-14 h-14 rounded-sm flex items-center justify-center mx-auto mb-4"
+           style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);">
+        <i class="fa-solid fa-music text-gold text-2xl"></i>
+      </div>
+      <div class="font-display text-4xl font-semibold mb-2" style="color:rgba(201,168,76,.25)">03</div>
+      <h3 class="font-display text-xl font-semibold text-white mb-2">Répétitions</h3>
+      <p class="text-sm leading-relaxed" style="color:rgba(245,240,232,.45)">
+        Création ou répétition de la chorégraphie, sélection des costumes et finalisation du programme artistique.
+      </p>
+    </div>
+
+    <div class="card-premium p-6 text-center" data-aos="fade-up" data-aos-delay="300">
+      <div class="w-14 h-14 rounded-sm flex items-center justify-center mx-auto mb-4"
+           style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);">
+        <i class="fa-solid fa-star text-gold text-2xl"></i>
+      </div>
+      <div class="font-display text-4xl font-semibold mb-2" style="color:rgba(201,168,76,.25)">04</div>
+      <h3 class="font-display text-xl font-semibold text-white mb-2">Performance</h3>
+      <p class="text-sm leading-relaxed" style="color:rgba(245,240,232,.45)">
+        Le grand jour. Une prestation mémorable qui transporte ton public et laisse une empreinte culturelle durable.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     5. PREUVES & CONFIANCE
+════════════════════════════════════════════ -->
+<section id="temoignages" class="py-28 px-5" style="background:linear-gradient(180deg,transparent,rgba(201,168,76,.03) 50%,transparent);">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <p class="section-eyebrow mb-4" data-aos="fade-up">Ils témoignent</p>
+      <h2 class="section-title text-4xl md:text-5xl text-white" data-aos="fade-up" data-aos-delay="100">
+        La parole à <span class="gold-text">mes clients</span>
+      </h2>
+      <div class="gold-divider mx-auto" data-aos="fade-up" data-aos-delay="150"></div>
+    </div>
+
+    <!-- Témoignages + chiffres -->
+    <div class="grid lg:grid-cols-4 gap-6 mb-12">
+
+      <!-- MODIFIER : remplacez ces témoignages par de vrais avis -->
+      <div class="card-premium p-7 relative" data-aos="fade-up" data-aos-delay="0">
+        <i class="fa-solid fa-quote-left absolute top-5 right-5 text-3xl" style="color:rgba(201,168,76,.12)"></i>
+        <div class="flex mb-3">
+          <i class="fa-solid fa-star text-gold text-xs"></i>
+          <i class="fa-solid fa-star text-gold text-xs ml-0.5"></i>
+          <i class="fa-solid fa-star text-gold text-xs ml-0.5"></i>
+          <i class="fa-solid fa-star text-gold text-xs ml-0.5"></i>
+          <i class="fa-solid fa-star text-gold text-xs ml-0.5"></i>
+        </div>
+        <p class="font-display text-lg italic leading-snug mb-4" style="color:rgba(245,240,232,.8)">
+          "Charlène a une façon unique de transmettre la danse. Mes enfants adorent ses cours et ont gagné en confiance."
+        </p>
+        <div class="gold-divider" style="margin:0 0 .75rem"></div>
+        <p class="section-eyebrow text-[.65rem]">— Amivi K., mère d'élève</p>
+      </div>
+
+      <div class="card-premium p-7 relative" data-aos="fade-up" data-aos-delay="100">
+        <i class="fa-solid fa-quote-left absolute top-5 right-5 text-3xl" style="color:rgba(201,168,76,.12)"></i>
+        <div class="flex mb-3">
+          <i class="fa-solid fa-star text-gold text-xs"></i>
+          <i class="fa-solid fa-star text-gold text-xs ml-0.5"></i>
+          <i class="fa-solid fa-star text-gold text-xs ml-0.5"></i>
+          <i class="fa-solid fa-star text-gold text-xs ml-0.5"></i>
+          <i class="fa-solid fa-star text-gold text-xs ml-0.5"></i>
+        </div>
+        <p class="font-display text-lg italic leading-snug mb-4" style="color:rgba(245,240,232,.8)">
+          "Le show lors de notre gala d'entreprise était époustouflant. Nos collaborateurs en parlent encore des semaines après."
+        </p>
+        <div class="gold-divider" style="margin:0 0 .75rem"></div>
+        <p class="section-eyebrow text-[.65rem]">— Directeur RH, Cotonou</p>
+      </div>
+
+      <div class="card-premium p-7 relative" data-aos="fade-up" data-aos-delay="200">
+        <i class="fa-solid fa-quote-left absolute top-5 right-5 text-3xl" style="color:rgba(201,168,76,.12)"></i>
+        <div class="flex mb-3">
+          <i class="fa-solid fa-star text-gold text-xs"></i>
+          <i class="fa-solid fa-star text-gold text-xs ml-0.5"></i>
+          <i class="fa-solid fa-star text-gold text-xs ml-0.5"></i>
+          <i class="fa-solid fa-star text-gold text-xs ml-0.5"></i>
+          <i class="fa-solid fa-star text-gold text-xs ml-0.5"></i>
+        </div>
+        <p class="font-display text-lg italic leading-snug mb-4" style="color:rgba(245,240,232,.8)">
+          "L'atelier culturel que Charlène a animé dans notre école a été une révélation pour nos élèves. Merci infiniment."
+        </p>
+        <div class="gold-divider" style="margin:0 0 .75rem"></div>
+        <p class="section-eyebrow text-[.65rem]">— Directrice d'école, Abomey-Calavi</p>
+      </div>
+
+      <!-- Chiffres -->
+      <div class="card-premium p-7 flex flex-col justify-between" data-aos="fade-up" data-aos-delay="300"
+           style="background:linear-gradient(135deg,rgba(201,168,76,.07),rgba(201,168,76,.02));">
+        <p class="section-eyebrow mb-4">En chiffres</p>
+        <div class="space-y-5 flex-1">
+          <div>
+            <p class="font-display text-4xl font-bold" style="color:#C9A84C">5+</p>
+            <p class="text-xs tracking-widest uppercase mt-1" style="color:rgba(245,240,232,.4)">Années de pratique</p>
+          </div>
+          <div style="height:1px;background:rgba(201,168,76,.1)"></div>
+          <div>
+            <p class="font-display text-4xl font-bold" style="color:#C9A84C">30+</p>
+            <p class="text-xs tracking-widest uppercase mt-1" style="color:rgba(245,240,232,.4)">Enfants coachés</p>
+          </div>
+          <div style="height:1px;background:rgba(201,168,76,.1)"></div>
+          <div>
+            <p class="font-display text-4xl font-bold" style="color:#C9A84C">10+</p>
+            <p class="text-xs tracking-widest uppercase mt-1" style="color:rgba(245,240,232,.4)">Événements & shows</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center" data-aos="fade-up">
+      <!-- MODIFIER : WA_NUMBER -->
+      <a href="https://wa.me/2290143386670?text=Bonjour%20Charlène,%20je%20souhaite%20un%20coaching%20danse." target="_blank" rel="noopener" class="btn-gold">
+        <i class="fa-brands fa-whatsapp"></i> Je veux un coaching
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     6. RÉSERVATION RAPIDE (FORMULAIRE WHATSAPP)
+════════════════════════════════════════════ -->
+<section id="reservation" class="py-28 px-5 max-w-3xl mx-auto">
+  <div class="text-center mb-12">
+    <p class="section-eyebrow mb-4" data-aos="fade-up">Formulaire express</p>
+    <h2 class="section-title text-4xl md:text-5xl text-white" data-aos="fade-up" data-aos-delay="100">
+      Réservation <span class="gold-text">Rapide</span>
+    </h2>
+    <div class="gold-divider mx-auto" data-aos="fade-up" data-aos-delay="150"></div>
+    <p class="text-sm leading-relaxed" style="color:rgba(245,240,232,.45)" data-aos="fade-up" data-aos-delay="200">
+      Remplis ce formulaire — il composera automatiquement ton message WhatsApp, prêt à envoyer en un clic.
+    </p>
+  </div>
+
+  <div class="card-premium p-8" data-aos="fade-up" data-aos-delay="100">
+    <div class="grid sm:grid-cols-2 gap-4">
+      <div>
+        <label class="block section-eyebrow text-[.65rem] mb-2">Ton prénom & nom *</label>
+        <input type="text" id="r-name" class="form-input" placeholder="Ex : Ama Kossou" />
+      </div>
+      <div>
+        <label class="block section-eyebrow text-[.65rem] mb-2">Téléphone</label>
+        <input type="tel" id="r-phone" class="form-input" placeholder="+229 00 000 000" />
+      </div>
+      <div>
+        <label class="block section-eyebrow text-[.65rem] mb-2">Date souhaitée *</label>
+        <input type="text" id="r-date" class="form-input" placeholder="Ex : 15 août 2025" />
+      </div>
+      <div>
+        <label class="block section-eyebrow text-[.65rem] mb-2">Lieu</label>
+        <input type="text" id="r-lieu" class="form-input" placeholder="Ex : Cotonou, Calavi…" />
+      </div>
+      <div class="sm:col-span-2">
+        <label class="block section-eyebrow text-[.65rem] mb-2">Type de prestation *</label>
+        <select id="r-type" class="form-input">
+          <option value="">— Choisir —</option>
+          <option value="Show / Événement">Show / Événement</option>
+          <option value="Coaching enfants">Coaching Danse Enfants</option>
+          <option value="Atelier culturel">Atelier Culturel</option>
+          <option value="Autre">Autre (préciser dans le message)</option>
+        </select>
+      </div>
+      <div class="sm:col-span-2">
+        <label class="block section-eyebrow text-[.65rem] mb-2">Message complémentaire</label>
+        <textarea id="r-msg" class="form-input" style="min-height:90px;" placeholder="Décris ton événement, tes attentes, le nombre de participants…"></textarea>
+      </div>
+    </div>
+    <button onclick="sendReservationWA()" class="btn-gold w-full justify-center mt-6">
+      <i class="fa-brands fa-whatsapp"></i> Envoyer sur WhatsApp
+    </button>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     7. FAQ DANSE
+════════════════════════════════════════════ -->
+<section id="faq" class="py-28 px-5" style="background:linear-gradient(180deg,transparent,rgba(201,168,76,.03) 50%,transparent);">
+  <div class="max-w-3xl mx-auto">
+    <div class="text-center mb-14">
+      <p class="section-eyebrow mb-4" data-aos="fade-up">Questions fréquentes</p>
+      <h2 class="section-title text-4xl md:text-5xl text-white" data-aos="fade-up" data-aos-delay="100">
+        FAQ <span class="gold-text">Danse</span>
+      </h2>
+      <div class="gold-divider mx-auto" data-aos="fade-up" data-aos-delay="150"></div>
+    </div>
+
+    <div class="space-y-1" data-aos="fade-up" data-aos-delay="100" id="faq-list">
+
+      <!-- FAQ 1 -->
+      <div class="faq-item">
+        <button class="faq-btn py-5 px-1 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
+          <span class="font-display text-lg font-semibold text-white text-left">Quels sont les tarifs ?</span>
+          <i class="fa-solid fa-plus text-gold faq-icon flex-shrink-0"></i>
+        </button>
+        <div class="faq-answer">
+          <p class="text-sm leading-relaxed pb-5 px-1" style="color:rgba(245,240,232,.55)">
+            Les tarifs dépendent du type de prestation, de la durée, du lieu et du nombre de participants. Je propose des formules sur devis personnalisé. Contactez-moi via WhatsApp pour obtenir une estimation rapide et gratuite sous 24h.
+          </p>
+        </div>
+      </div>
+
+      <!-- FAQ 2 -->
+      <div class="faq-item">
+        <button class="faq-btn py-5 px-1 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
+          <span class="font-display text-lg font-semibold text-white text-left">Quelles sont tes disponibilités ?</span>
+          <i class="fa-solid fa-plus text-gold faq-icon flex-shrink-0"></i>
+        </button>
+        <div class="faq-answer">
+          <p class="text-sm leading-relaxed pb-5 px-1" style="color:rgba(245,240,232,.55)">
+            Je suis disponible les week-ends, jours fériés et certains jours de semaine selon le planning universitaire. Pour les événements, je recommande de réserver au minimum 3 semaines à l'avance. Pour le coaching hebdomadaire, les créneaux sont ouverts le mercredi après-midi et le samedi matin.
+          </p>
+        </div>
+      </div>
+
+      <!-- FAQ 3 -->
+      <div class="faq-item">
+        <button class="faq-btn py-5 px-1 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
+          <span class="font-display text-lg font-semibold text-white text-left">Dans quels lieux interviens-tu ?</span>
+          <i class="fa-solid fa-plus text-gold faq-icon flex-shrink-0"></i>
+        </button>
+        <div class="faq-answer">
+          <p class="text-sm leading-relaxed pb-5 px-1" style="color:rgba(245,240,232,.55)">
+            J'interviens principalement à Cotonou, Abomey-Calavi et dans le Grand Nokoué. Je suis également disponible pour des déplacements dans d'autres villes du Bénin ou à l'international sur demande (frais de déplacement à discuter). Les ateliers peuvent se tenir dans votre école, entreprise, salle événementielle ou en plein air.
+          </p>
+        </div>
+      </div>
+
+      <!-- FAQ 4 -->
+      <div class="faq-item">
+        <button class="faq-btn py-5 px-1 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
+          <span class="font-display text-lg font-semibold text-white text-left">Combien de temps dure un coaching ?</span>
+          <i class="fa-solid fa-plus text-gold faq-icon flex-shrink-0"></i>
+        </button>
+        <div class="faq-answer">
+          <p class="text-sm leading-relaxed pb-5 px-1" style="color:rgba(245,240,232,.55)">
+            Les séances de coaching individuelles durent 1h à 1h30. En groupe, je recommande 1h30. Un cycle complet de coaching couvre généralement 8 à 12 semaines, avec un showcase final. Des sessions à la carte (ponctuelles) sont aussi possibles pour des événements spécifiques.
+          </p>
+        </div>
+      </div>
+
+      <!-- FAQ 5 -->
+      <div class="faq-item">
+        <button class="faq-btn py-5 px-1 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
+          <span class="font-display text-lg font-semibold text-white text-left">Faut-il prévoir des tenues spéciales ?</span>
+          <i class="fa-solid fa-plus text-gold faq-icon flex-shrink-0"></i>
+        </button>
+        <div class="faq-answer">
+          <p class="text-sm leading-relaxed pb-5 px-1" style="color:rgba(245,240,232,.55)">
+            Pour les cours de coaching, des vêtements confortables et souples suffisent (legging, t-shirt). Pour les performances et shows, je fournis ou recommande les costumes traditionnels appropriés, inclus dans la prestation ou disponibles en location. Je vous guide à chaque étape.
+          </p>
+        </div>
+      </div>
+
+      <!-- FAQ 6 -->
+      <div class="faq-item">
+        <button class="faq-btn py-5 px-1 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
+          <span class="font-display text-lg font-semibold text-white text-left">Comment réserver ou confirmer une prestation ?</span>
+          <i class="fa-solid fa-plus text-gold faq-icon flex-shrink-0"></i>
+        </button>
+        <div class="faq-answer">
+          <p class="text-sm leading-relaxed pb-5 px-1" style="color:rgba(245,240,232,.55)">
+            La réservation se fait en 3 étapes simples : (1) envoyez votre demande via WhatsApp ou le formulaire de cette page, (2) nous échangeons sur vos besoins et je vous envoie un devis, (3) un acompte confirme officiellement la date. C'est aussi simple que ça !
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     8. CTA FINAL
+════════════════════════════════════════════ -->
+<section id="cta-final" class="py-28 px-5 relative overflow-hidden">
+  <!-- Background décor -->
+  <div class="topo-bg" style="opacity:.04;">
+    <svg viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs><style>.tc{fill:none;stroke:#C9A84C;stroke-width:.8}</style></defs>
+      <ellipse class="tc" cx="600" cy="250" rx="560" ry="220"/>
+      <ellipse class="tc" cx="600" cy="250" rx="480" ry="180"/>
+      <ellipse class="tc" cx="600" cy="250" rx="400" ry="140"/>
+      <ellipse class="tc" cx="600" cy="250" rx="310" ry="100"/>
+      <ellipse class="tc" cx="600" cy="250" rx="210" ry="65"/>
+    </svg>
+  </div>
+  <div class="glow-orb" style="width:500px;height:300px;background:rgba(201,168,76,.06);top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:0s;border-radius:50%;"></div>
+
+  <div class="relative z-10 max-w-3xl mx-auto text-center">
+    <p class="section-eyebrow mb-6" data-aos="fade-up">Passons à l'action</p>
+    <h2 class="section-title text-4xl md:text-6xl text-white mb-4 leading-tight" data-aos="fade-up" data-aos-delay="80">
+      Un esprit qui cartographie,<br/>
+      <span class="gold-text">un cœur qui danse.</span>
+    </h2>
+    <div class="gold-divider mx-auto" data-aos="fade-up" data-aos-delay="130"></div>
+    <p class="text-base md:text-lg leading-relaxed max-w-xl mx-auto mb-10" style="color:rgba(245,240,232,.55)" data-aos="fade-up" data-aos-delay="180">
+      Réserve Charlène pour ton événement ou forme ton groupe. Une danseuse, une coach, une vision — toujours au service de ta culture.
+    </p>
+    <div class="flex flex-wrap gap-4 justify-center" data-aos="fade-up" data-aos-delay="230">
+      <!-- MODIFIER : WA_NUMBER -->
+      <a href="https://wa.me/2290143386670?text=Bonjour%20Charlène,%20je%20veux%20réserver%20une%20prestation%20danse." target="_blank" rel="noopener" class="btn-gold">
+        <i class="fa-brands fa-whatsapp"></i> Réserver sur WhatsApp
+      </a>
+      <!-- MODIFIER : adresse email réelle -->
+      <a href="mailto:charlene.fifamin@email.com?subject=Demande%20prestation%20danse" class="btn-outline">
+        <i class="fa-regular fa-envelope"></i> Envoyer un email
+      </a>
+      <a href="services.html" class="btn-ghost">
+        <i class="fa-solid fa-arrow-right text-xs"></i> Voir tous les services
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     9. FOOTER
+════════════════════════════════════════════ -->
+<footer id="contact" class="pt-16 pb-10 px-5" style="border-top:1px solid rgba(201,168,76,.1);">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-10 mb-12">
+
+    <!-- Brand -->
+    <div>
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-9 h-9 border border-gold/40 rounded-sm flex items-center justify-center">
+          <span class="gold-text font-display font-bold text-base leading-none">CF</span>
+        </div>
+        <div>
+          <p class="text-[.7rem] tracking-[.18em] uppercase leading-none" style="color:rgba(201,168,76,.7)">Charlène</p>
+          <p class="text-xs font-semibold tracking-widest uppercase leading-none mt-0.5" style="color:rgba(245,240,232,.8)">FIFAMIN KPATENON</p>
+        </div>
+      </div>
+      <p class="text-sm leading-relaxed max-w-xs" style="color:rgba(245,240,232,.4)">
+        Un esprit qui cartographie, un cœur qui danse, une culture qui inspire.
+      </p>
+    </div>
+
+    <!-- Navigation -->
+    <div>
+      <p class="section-eyebrow mb-4">Navigation</p>
+      <ul class="space-y-2">
+        <li><a href="index.html"      class="text-sm transition-colors hover:text-gold/80" style="color:rgba(245,240,232,.4)">Accueil</a></li>
+        <li><a href="danse.html"      class="text-sm transition-colors hover:text-gold/80" style="color:rgba(245,240,232,.4)">Danse Culturelle</a></li>
+        <li><a href="geomatique.html" class="text-sm transition-colors hover:text-gold/80" style="color:rgba(245,240,232,.4)">Géomatique</a></li>
+        <li><a href="services.html"   class="text-sm transition-colors hover:text-gold/80" style="color:rgba(245,240,232,.4)">Services</a></li>
+        <li><a href="galerie.html"    class="text-sm transition-colors hover:text-gold/80" style="color:rgba(245,240,232,.4)">Galerie</a></li>
+      </ul>
+    </div>
+
+    <!-- Réseaux -->
+    <div>
+      <p class="section-eyebrow mb-4">Réseaux sociaux</p>
+      <div class="flex flex-col gap-3">
+        <!-- MODIFIER : remplacez # par les vrais liens -->
+        <a href="#" target="_blank" rel="noopener" class="flex items-center gap-2 text-sm transition-colors hover:text-gold/80" style="color:rgba(245,240,232,.4)">
+          <i class="fa-brands fa-instagram w-4"></i> Instagram
+        </a>
+        <a href="#" target="_blank" rel="noopener" class="flex items-center gap-2 text-sm transition-colors hover:text-gold/80" style="color:rgba(245,240,232,.4)">
+          <i class="fa-brands fa-tiktok w-4"></i> TikTok
+        </a>
+        <a href="#" target="_blank" rel="noopener" class="flex items-center gap-2 text-sm transition-colors hover:text-gold/80" style="color:rgba(245,240,232,.4)">
+          <i class="fa-brands fa-facebook w-4"></i> Facebook
+        </a>
+        <a href="#" target="_blank" rel="noopener" class="flex items-center gap-2 text-sm transition-colors hover:text-gold/80" style="color:rgba(245,240,232,.4)">
+          <i class="fa-brands fa-youtube w-4"></i> YouTube
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom -->
+  <div class="pt-8 flex flex-col md:flex-row items-center justify-between gap-3 max-w-7xl mx-auto"
+       style="border-top:1px solid rgba(201,168,76,.08);">
+    <p class="text-xs" style="color:rgba(245,240,232,.25)">
+      © <span id="footer-year"></span> Charlène FIFAMIN KPATENON. Tous droits réservés.
+    </p>
+    <p class="font-display text-sm italic" style="color:rgba(201,168,76,.4)">
+      "Danser notre culture. Inspirer le monde."
+    </p>
+  </div>
+</footer>
+
+<!-- ════════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+  // ── CONSTANTE WHATSAPP ──────────────────────────────────────────────────
+  // Remplacer WA_NUMBER par le numéro officiel (format international sans +)
+  // Ex : 22901234567
+  const WA_NUMBER = "2290143386670";
+  // ── EMAIL ───────────────────────────────────────────────────────────────
+  // Remplacer par l'adresse email officielle
+  const CONTACT_EMAIL = "charlene.fifamin@email.com";
+  // ───────────────────────────────────────────────────────────────────────
+
+  /* AOS */
+  AOS.init({ once: true, offset: 55, duration: 740, easing: 'ease-out-cubic' });
+
+  /* Footer year */
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+  /* Scroll progress bar */
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    document.getElementById('progress-bar').style.width = (scrolled / max * 100) + '%';
+
+    /* Navbar */
+    document.getElementById('navbar').classList.toggle('scrolled', scrolled > 60);
+
+    /* Back to top */
+    document.getElementById('back-to-top').classList.toggle('visible', scrolled > 400);
+  }, { passive: true });
+
+  /* Mobile menu */
+  const mobileMenu = document.getElementById('mobile-menu');
+  document.getElementById('hamburger').addEventListener('click', () => {
+    mobileMenu.classList.add('open'); document.body.style.overflow = 'hidden';
+  });
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('open'); document.body.style.overflow = '';
+  }
+  document.getElementById('mobile-close').addEventListener('click', closeMobileMenu);
+
+  /* FAQ accordion */
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const answer = item.querySelector('.faq-answer');
+    const isOpen = item.classList.contains('open');
+    // close all
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-answer').classList.remove('open');
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      answer.classList.add('open');
+    }
+  }
+
+  /* Réservation WhatsApp */
+  function sendReservationWA() {
+    const name  = (document.getElementById('r-name').value || '').trim();
+    const phone = (document.getElementById('r-phone').value || '').trim();
+    const date  = (document.getElementById('r-date').value || '').trim();
+    const lieu  = (document.getElementById('r-lieu').value || '').trim();
+    const type  = (document.getElementById('r-type').value || '').trim();
+    const msg   = (document.getElementById('r-msg').value || '').trim();
+
+    if (!name || !date || !type) {
+      alert('Merci de renseigner au minimum votre nom, la date et le type de prestation.');
+      return;
+    }
+
+    const text =
+      `Bonjour Charlène 👋\n\n` +
+      `📋 *Demande de réservation*\n\n` +
+      `• Nom : ${name}\n` +
+      (phone ? `• Téléphone : ${phone}\n` : '') +
+      `• Date souhaitée : ${date}\n` +
+      (lieu ? `• Lieu : ${lieu}\n` : '') +
+      `• Type de prestation : ${type}\n` +
+      (msg ? `\n💬 Message :\n${msg}\n` : '') +
+      `\nMerci de me confirmer vos disponibilités.`;
+
+    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+  }
+
+  /* Cursor glow (desktop only) */
+  const dot  = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  if (dot && ring && window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+    document.addEventListener('mousemove', e => {
+      dot.style.left  = e.clientX + 'px';
+      dot.style.top   = e.clientY + 'px';
+      ring.style.left = e.clientX + 'px';
+      ring.style.top  = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button, .card-premium').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        dot.style.transform  = 'translate(-50%,-50%) scale(2)';
+        ring.style.width     = '50px';
+        ring.style.height    = '50px';
+        ring.style.borderColor = 'rgba(201,168,76,.7)';
+      });
+      el.addEventListener('mouseleave', () => {
+        dot.style.transform  = 'translate(-50%,-50%) scale(1)';
+        ring.style.width     = '32px';
+        ring.style.height    = '32px';
+        ring.style.borderColor = 'rgba(201,168,76,.4)';
+      });
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Géomatique | Charlène FIFAMIN KPATENON</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Charlène FIFAMIN KPATENON — Étudiante en génie géomatique. Cartographie, SIG, levés terrain, analyse spatiale au service du développement territorial en Afrique." />
+  <meta property="og:title" content="Géomatique | Charlène FIFAMIN KPATENON" />
+  <meta property="og:description" content="Comprendre le territoire. Construire l'avenir. Services SIG, cartographie et levés topographiques." />
+  <meta property="og:type" content="website" />
+  <!-- MODIFIER : og:image → votre vraie image géomatique -->
+  <meta property="og:image" content="https://images.unsplash.com/photo-1446329360995-b4642a139973?w=1200&q=80" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: { DEFAULT:'#C9A84C', light:'#E2C97E', dark:'#9B7B2E' },
+            noir: { DEFAULT:'#0A0A0A', soft:'#111111', card:'#131313' }
+          },
+          fontFamily: {
+            display: ['"Cormorant Garamond"','serif'],
+            body: ['"DM Sans"','sans-serif'],
+            mono: ['"Space Mono"','monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #0A0A0A; color: #f0ede8;
+      font-family: 'DM Sans', sans-serif;
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+
+    /* ── Progress bar ── */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; height: 2px; z-index: 1100;
+      background: linear-gradient(90deg, #C9A84C, #E2C97E, #C9A84C);
+      background-size: 200% auto; width: 0%;
+      animation: shimmer 3s linear infinite;
+      transition: width .1s linear;
+    }
+    @keyframes shimmer { to { background-position: 200% center; } }
+
+    /* ── Cartographic grid background ── */
+    .cart-grid {
+      position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0;
+      opacity: .045;
+    }
+    .cart-grid svg { width: 100%; height: 100%; }
+
+    /* ── Animated gradient background ── */
+    .geo-gradient {
+      background:
+        radial-gradient(ellipse 70% 55% at 65% 35%, rgba(201,168,76,.09) 0%, transparent 65%),
+        radial-gradient(ellipse 45% 65% at 5% 75%, rgba(40,120,200,.05) 0%, transparent 55%),
+        radial-gradient(ellipse 55% 40% at 90% 80%, rgba(201,168,76,.04) 0%, transparent 60%),
+        linear-gradient(170deg, #0A0A0A 0%, #0c0f0e 100%);
+    }
+
+    /* ── Scan line animation (tech feel) ── */
+    @keyframes scanLine {
+      0% { transform: translateY(-100%); opacity: 0; }
+      10% { opacity: .6; }
+      90% { opacity: .6; }
+      100% { transform: translateY(200vh); opacity: 0; }
+    }
+    .scan-line {
+      position: absolute; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(201,168,76,.3), transparent);
+      pointer-events: none; z-index: 2;
+      animation: scanLine 6s ease-in-out infinite;
+      animation-delay: 2s;
+    }
+
+    /* ── Glow orb ── */
+    .glow-orb {
+      position: absolute; border-radius: 50%; filter: blur(90px);
+      pointer-events: none; animation: floatGlow 10s ease-in-out infinite;
+    }
+    @keyframes floatGlow {
+      0%,100%{transform:translateY(0) scale(1);opacity:.4}
+      50%{transform:translateY(-22px) scale(1.07);opacity:.7}
+    }
+
+    /* ── Gold text ── */
+    .gold-text {
+      background: linear-gradient(135deg, #C9A84C 0%, #E2C97E 45%, #C9A84C 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      animation: goldShimmer 4s ease infinite;
+    }
+    @keyframes goldShimmer { 0%,100%{background-position:0%} 50%{background-position:200%} }
+
+    /* ── Monospace data text ── */
+    .mono-label {
+      font-family: 'Space Mono', monospace;
+      font-size: .68rem; letter-spacing: .1em; color: rgba(201,168,76,.7);
+    }
+
+    /* ── Navbar ── */
+    #navbar {
+      position: fixed; top: 2px; left: 0; right: 0; z-index: 1000;
+      transition: background .4s, box-shadow .4s;
+    }
+    #navbar.scrolled {
+      background: rgba(10,10,10,.94);
+      backdrop-filter: blur(22px);
+      box-shadow: 0 1px 0 rgba(201,168,76,.13);
+    }
+    .nav-link {
+      position: relative; font-size: .8rem; font-weight: 500;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: rgba(240,237,232,.58); transition: color .3s;
+    }
+    .nav-link::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px; background: #C9A84C;
+      transform: scaleX(0); transform-origin: center; transition: transform .3s ease;
+    }
+    .nav-link:hover, .nav-link.active { color: #E2C97E; }
+    .nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
+
+    /* ── Buttons ── */
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: linear-gradient(135deg,#C9A84C,#E2C97E,#C9A84C);
+      background-size: 200% auto;
+      color: #0A0A0A; font-weight: 600; font-size: .8rem;
+      letter-spacing: .06em; text-transform: uppercase;
+      padding: .72rem 1.6rem; border-radius: 2px;
+      transition: background-position .4s, transform .2s, box-shadow .3s;
+      box-shadow: 0 4px 20px rgba(201,168,76,.2);
+    }
+    .btn-gold:hover { background-position: right center; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,.35); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: .5rem;
+      border: 1px solid rgba(201,168,76,.45); color: #C9A84C;
+      font-weight: 500; font-size: .8rem; letter-spacing: .06em; text-transform: uppercase;
+      padding: .72rem 1.6rem; border-radius: 2px;
+      transition: background .3s, transform .2s, box-shadow .3s;
+    }
+    .btn-outline:hover { background: rgba(201,168,76,.1); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(201,168,76,.15); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: .5rem;
+      color: rgba(240,237,232,.65); font-weight: 500; font-size: .8rem;
+      letter-spacing: .06em; text-transform: uppercase;
+      padding: .72rem 1.6rem; border-radius: 2px;
+      border: 1px solid rgba(255,255,255,.1);
+      transition: color .3s, border-color .3s, transform .2s;
+    }
+    .btn-ghost:hover { color: #f0ede8; border-color: rgba(255,255,255,.25); transform: translateY(-2px); }
+
+    /* ── Cards ── */
+    .card-geo {
+      background: #131313; border: 1px solid rgba(201,168,76,.11);
+      border-radius: 4px; position: relative; overflow: hidden;
+      transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+    }
+    .card-geo::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,168,76,.3), transparent);
+      opacity: 0; transition: opacity .35s;
+    }
+    .card-geo:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,.5), 0 0 0 1px rgba(201,168,76,.22); border-color: rgba(201,168,76,.28); }
+    .card-geo:hover::before { opacity: 1; }
+
+    /* ── Section titles ── */
+    .eyebrow { font-size: .72rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: #C9A84C; }
+    .section-title { font-family: 'Cormorant Garamond',serif; font-weight: 600; line-height: 1.08; }
+    .divider-gold { width: 48px; height: 1px; background: linear-gradient(90deg, transparent, #C9A84C, transparent); margin: 1.2rem 0; }
+
+    /* ── Skill bar ── */
+    .skill-bar-bg { background: rgba(255,255,255,.05); border-radius: 1px; height: 3px; overflow: hidden; }
+    .skill-bar-fill {
+      height: 100%; border-radius: 1px;
+      background: linear-gradient(90deg, #C9A84C, #E2C97E);
+      transition: width 1.2s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* ── Project card ── */
+    .proj-card { position: relative; overflow: hidden; border-radius: 4px; }
+    .proj-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    .proj-card:hover img { transform: scale(1.06); }
+    .proj-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,.92) 0%, rgba(0,0,0,.2) 60%, transparent 100%);
+      transition: background .35s;
+    }
+    .proj-card:hover .proj-overlay { background: linear-gradient(to top, rgba(10,10,10,.97) 0%, rgba(0,0,0,.4) 70%, rgba(201,168,76,.05) 100%); }
+
+    /* ── FAQ ── */
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height .4s cubic-bezier(.4,0,.2,1), padding .3s; }
+    .faq-answer.open { max-height: 260px; }
+    .faq-item { border-bottom: 1px solid rgba(201,168,76,.09); }
+    .faq-icon { transition: transform .35s; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    /* ── Form inputs ── */
+    .form-input {
+      width: 100%; background: rgba(255,255,255,.04);
+      border: 1px solid rgba(201,168,76,.2); color: #f0ede8;
+      padding: .85rem 1rem; border-radius: 2px;
+      font-family: 'DM Sans',sans-serif; font-size: .9rem; outline: none;
+      transition: border-color .3s, background .3s;
+    }
+    .form-input::placeholder { color: rgba(240,237,232,.28); }
+    .form-input:focus { border-color: rgba(201,168,76,.6); background: rgba(201,168,76,.05); }
+    select.form-input option { background: #131313; }
+    textarea.form-input { resize: vertical; min-height: 100px; }
+
+    /* ── Vision quote ── */
+    .vision-block {
+      background: linear-gradient(135deg, rgba(201,168,76,.08) 0%, rgba(201,168,76,.02) 100%);
+      border: 1px solid rgba(201,168,76,.22);
+      border-radius: 4px; position: relative; overflow: hidden;
+    }
+    .vision-block::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, #C9A84C, transparent);
+    }
+    .vision-block::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,168,76,.4), transparent);
+    }
+
+    /* ── Coordinate display ── */
+    .coord-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: .65rem; color: rgba(201,168,76,.6);
+      background: rgba(201,168,76,.06);
+      border: 1px solid rgba(201,168,76,.15);
+      padding: .3rem .7rem; border-radius: 2px;
+      display: inline-block;
+    }
+
+    /* ── Back to top ── */
+    #back-to-top {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 900;
+      width: 44px; height: 44px; background: rgba(201,168,76,.9);
+      color: #0A0A0A; border-radius: 2px; border: none;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; opacity: 0; transform: translateY(20px);
+      transition: opacity .3s, transform .3s, background .2s;
+      box-shadow: 0 4px 20px rgba(201,168,76,.3);
+    }
+    #back-to-top.visible { opacity: 1; transform: translateY(0); }
+    #back-to-top:hover { background: #E2C97E; }
+
+    /* ── Mobile menu ── */
+    #mobile-menu {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: rgba(10,10,10,.98);
+      flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+    }
+    #mobile-menu.open { display: flex; }
+    .mobile-nav-link {
+      font-family: 'Cormorant Garamond',serif; font-size: 2rem; font-weight: 600;
+      color: rgba(240,237,232,.8); transition: color .3s;
+    }
+    .mobile-nav-link:hover, .mobile-nav-link.active { color: #C9A84C; }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #0A0A0A; }
+    ::-webkit-scrollbar-thumb { background: rgba(201,168,76,.4); border-radius: 2px; }
+
+    /* ── Reduced motion ── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      [data-aos] { opacity: 1 !important; transform: none !important; }
+      .scan-line { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Progress bar ── -->
+<div id="progress-bar"></div>
+
+<!-- ── Back to top ── -->
+<button id="back-to-top" aria-label="Retour en haut" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i class="fa-solid fa-chevron-up text-sm"></i>
+</button>
+
+<!-- ══════════════════════════════════════
+     MOBILE MENU
+══════════════════════════════════════ -->
+<div id="mobile-menu" role="dialog" aria-modal="true">
+  <button id="mobile-close" class="absolute top-6 right-6 text-2xl" style="color:#C9A84C;" aria-label="Fermer">
+    <i class="fa-solid fa-xmark"></i>
+  </button>
+  <a href="index.html"       class="mobile-nav-link" onclick="closeMobileMenu()">Accueil</a>
+  <a href="danse.html"       class="mobile-nav-link" onclick="closeMobileMenu()">Danse</a>
+  <a href="geomatique.html"  class="mobile-nav-link active" onclick="closeMobileMenu()">Géomatique</a>
+  <a href="services.html"    class="mobile-nav-link" onclick="closeMobileMenu()">Services</a>
+  <a href="galerie.html"     class="mobile-nav-link" onclick="closeMobileMenu()">Galerie</a>
+  <a href="#contact"         class="mobile-nav-link" onclick="closeMobileMenu()">Contact</a>
+  <!-- MODIFIER : WA_NUMBER → numéro WhatsApp officiel -->
+  <a href="https://wa.me/2290143386670?text=Bonjour%20Charlène,%20je%20souhaite%20un%20service%20géomatique." target="_blank" rel="noopener" class="btn-gold mt-4">
+    <i class="fa-brands fa-whatsapp"></i> Demander un service
+  </a>
+</div>
+
+<!-- ══════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════ -->
+<nav id="navbar" aria-label="Navigation principale">
+  <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3 group">
+      <div class="w-9 h-9 border border-gold/40 rounded-sm flex items-center justify-center group-hover:border-gold/80 transition-colors">
+        <span class="gold-text font-display font-bold text-base leading-none">CF</span>
+      </div>
+      <div class="hidden sm:block">
+        <p class="text-[.7rem] tracking-[.18em] uppercase leading-none font-body" style="color:rgba(201,168,76,.7)">Charlène</p>
+        <p class="text-xs font-semibold tracking-widest uppercase leading-none mt-0.5" style="color:rgba(240,237,232,.8)">FIFAMIN KPATENON</p>
+      </div>
+    </a>
+    <ul class="hidden lg:flex items-center gap-8">
+      <li><a href="index.html"      class="nav-link">Accueil</a></li>
+      <li><a href="danse.html"      class="nav-link">Danse</a></li>
+      <li><a href="geomatique.html" class="nav-link active">Géomatique</a></li>
+      <li><a href="services.html"   class="nav-link">Services</a></li>
+      <li><a href="galerie.html"    class="nav-link">Galerie</a></li>
+      <li><a href="#contact"        class="nav-link">Contact</a></li>
+    </ul>
+    <div class="flex items-center gap-3">
+      <!-- MODIFIER : WA_NUMBER -->
+      <a href="https://wa.me/2290143386670?text=Bonjour%20Charlène,%20je%20souhaite%20un%20service%20géomatique." target="_blank" rel="noopener"
+         class="btn-gold hidden md:inline-flex text-[.75rem] py-2.5 px-4">
+        <i class="fa-brands fa-whatsapp"></i> Demander un service
+      </a>
+      <button id="hamburger" class="lg:hidden p-1" style="color:rgba(240,237,232,.7);" aria-label="Menu">
+        <i class="fa-solid fa-bars text-lg"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════
+     1. HERO SECTION
+══════════════════════════════════════ -->
+<section id="hero" class="relative min-h-screen flex items-center geo-gradient overflow-hidden pt-20">
+  <!-- Cartographic grid -->
+  <div class="cart-grid">
+    <svg viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <style>.g{stroke:#C9A84C;stroke-width:.6;fill:none}.gc{stroke:#C9A84C;stroke-width:.4;fill:none;stroke-dasharray:4,8}</style>
+      </defs>
+      <!-- Grid lines H -->
+      <line class="gc" x1="0" y1="100" x2="1400" y2="100"/>
+      <line class="gc" x1="0" y1="200" x2="1400" y2="200"/>
+      <line class="gc" x1="0" y1="300" x2="1400" y2="300"/>
+      <line class="gc" x1="0" y1="400" x2="1400" y2="400"/>
+      <line class="gc" x1="0" y1="500" x2="1400" y2="500"/>
+      <line class="gc" x1="0" y1="600" x2="1400" y2="600"/>
+      <line class="gc" x1="0" y1="700" x2="1400" y2="700"/>
+      <line class="gc" x1="0" y1="800" x2="1400" y2="800"/>
+      <!-- Grid lines V -->
+      <line class="gc" x1="140" y1="0" x2="140" y2="900"/>
+      <line class="gc" x1="280" y1="0" x2="280" y2="900"/>
+      <line class="gc" x1="420" y1="0" x2="420" y2="900"/>
+      <line class="gc" x1="560" y1="0" x2="560" y2="900"/>
+      <line class="gc" x1="700" y1="0" x2="700" y2="900"/>
+      <line class="gc" x1="840" y1="0" x2="840" y2="900"/>
+      <line class="gc" x1="980" y1="0" x2="980" y2="900"/>
+      <line class="gc" x1="1120" y1="0" x2="1120" y2="900"/>
+      <line class="gc" x1="1260" y1="0" x2="1260" y2="900"/>
+      <!-- Contour lines -->
+      <ellipse class="g" cx="700" cy="450" rx="520" ry="310"/>
+      <ellipse class="g" cx="700" cy="450" rx="420" ry="245"/>
+      <ellipse class="g" cx="700" cy="450" rx="320" ry="185"/>
+      <ellipse class="g" cx="700" cy="450" rx="220" ry="128"/>
+      <ellipse class="g" cx="700" cy="450" rx="120" ry="72"/>
+      <!-- Meridian accent lines -->
+      <path class="g" d="M0,350 Q350,290 700,340 Q1050,390 1400,320"/>
+      <path class="g" d="M0,520 Q350,465 700,510 Q1050,555 1400,490"/>
+      <!-- Crosshairs -->
+      <circle class="g" cx="700" cy="450" r="12"/>
+      <line class="g" x1="688" y1="450" x2="712" y2="450"/>
+      <line class="g" x1="700" y1="438" x2="700" y2="462"/>
+    </svg>
+  </div>
+
+  <!-- Scan line effect -->
+  <div class="scan-line"></div>
+
+  <!-- Glow orbs -->
+  <div class="glow-orb" style="width:440px;height:440px;background:rgba(201,168,76,.07);top:-8%;right:3%;animation-delay:0s"></div>
+  <div class="glow-orb" style="width:300px;height:300px;background:rgba(40,120,200,.04);bottom:5%;left:-3%;animation-delay:5s"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-5 py-24 grid lg:grid-cols-2 gap-14 items-center w-full">
+
+    <!-- Left content -->
+    <div>
+      <!-- Coordinate badge -->
+      <div class="mb-5" data-aos="fade-up" data-aos-duration="600">
+        <span class="coord-badge">6.3654°N, 2.4183°E — Cotonou, Bénin</span>
+      </div>
+
+      <div class="flex items-center gap-3 mb-5" data-aos="fade-up" data-aos-duration="700" data-aos-delay="50">
+        <div class="w-8 h-px" style="background:rgba(201,168,76,.6)"></div>
+        <span class="eyebrow">Génie Géomatique • Cartographie • SIG</span>
+      </div>
+
+      <h1 class="section-title text-5xl md:text-6xl lg:text-[4.2rem] text-white mb-6 leading-[1.05]"
+          data-aos="fade-up" data-aos-duration="700" data-aos-delay="100">
+        Comprendre le<br/>
+        <em class="gold-text not-italic">territoire.</em><br/>
+        Construire<br/>
+        <span style="-webkit-text-fill-color:transparent;background:linear-gradient(135deg,rgba(201,168,76,.5),#fff 60%);-webkit-background-clip:text;background-clip:text;">l'avenir.</span>
+      </h1>
+
+      <p class="text-base md:text-lg leading-relaxed max-w-lg mb-8 font-light" style="color:rgba(240,237,232,.58)" data-aos="fade-up" data-aos-duration="700" data-aos-delay="180">
+        Étudiante en génie géomatique, je transforme les données du terrain en informations utiles pour mieux comprendre et agir sur les territoires. Précision, analyse, impact.
+      </p>
+
+      <div class="flex flex-wrap gap-3 mb-10" data-aos="fade-up" data-aos-duration="700" data-aos-delay="260">
+        <!-- MODIFIER : WA_NUMBER -->
+        <a href="https://wa.me/2290143386670?text=Bonjour%20Charlène,%20je%20voudrais%20demander%20un%20service%20géomatique." target="_blank" rel="noopener" class="btn-gold">
+          <i class="fa-brands fa-whatsapp"></i> Demander un service
+        </a>
+        <a href="#projets" class="btn-outline">
+          <i class="fa-solid fa-map text-xs"></i> Voir mes projets
+        </a>
+      </div>
+
+      <!-- Mini stats -->
+      <div class="grid grid-cols-3 gap-4" data-aos="fade-up" data-aos-duration="700" data-aos-delay="340">
+        <div class="text-center">
+          <p class="font-display text-3xl font-bold" style="color:#C9A84C">SIG</p>
+          <p class="mono-label mt-1">QGIS · ArcGIS</p>
+        </div>
+        <div class="text-center" style="border-left:1px solid rgba(201,168,76,.12);border-right:1px solid rgba(201,168,76,.12)">
+          <p class="font-display text-3xl font-bold" style="color:#C9A84C">GPS</p>
+          <p class="mono-label mt-1">Levés terrain</p>
+        </div>
+        <div class="text-center">
+          <p class="font-display text-3xl font-bold" style="color:#C9A84C">GIS</p>
+          <p class="mono-label mt-1">Analyse spatiale</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: hero image -->
+    <div class="flex justify-center lg:justify-end" data-aos="fade-left" data-aos-duration="900" data-aos-delay="150">
+      <div style="width:min(22rem,90vw);aspect-ratio:4/5;position:relative;">
+        <!-- Main image frame -->
+        <div style="position:absolute;inset:0;border-radius:4px;overflow:hidden;border:1px solid rgba(201,168,76,.2);box-shadow:0 30px 80px rgba(0,0,0,.65),0 0 0 1px rgba(201,168,76,.08);">
+          <!-- MODIFIER : remplacez par votre vraie photo terrain/géomatique -->
+          <img src="images/geomatique.jpg"
+               alt="Charlène FIFAMIN KPATENON — levé terrain géomatique"
+               loading="lazy" style="width:100%;height:100%;object-fit:cover;" />
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.9) 0%,rgba(0,0,0,.08) 55%,transparent 100%);"></div>
+          <!-- Scan overlay -->
+          <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(201,168,76,.012) 3px,rgba(201,168,76,.012) 4px);pointer-events:none;"></div>
+          <!-- Bottom info -->
+          <div style="position:absolute;bottom:1.5rem;left:1.5rem;right:1.5rem;">
+            <span class="coord-badge mb-2 block">GEO_ID : CF_2025_001</span>
+            <p class="font-display text-xl font-semibold text-white">Génie Géomatique</p>
+            <p class="mono-label mt-1">Charlène FIFAMIN KPATENON</p>
+          </div>
+        </div>
+        <!-- Floating data card -->
+        <div style="position:absolute;top:-1.5rem;right:-1.5rem;background:rgba(19,19,19,.95);border:1px solid rgba(201,168,76,.25);border-radius:4px;padding:.75rem 1rem;min-width:140px;box-shadow:0 8px 30px rgba(0,0,0,.5);">
+          <p class="mono-label mb-1">Précision GPS</p>
+          <p class="font-display text-2xl font-bold" style="color:#C9A84C">±2 cm</p>
+        </div>
+        <!-- Corner decorations -->
+        <div style="position:absolute;bottom:-1rem;left:-1rem;background:rgba(19,19,19,.95);border:1px solid rgba(201,168,76,.2);border-radius:4px;padding:.5rem .8rem;box-shadow:0 8px 30px rgba(0,0,0,.5);">
+          <p class="mono-label">QGIS · ArcGIS</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Scroll indicator -->
+  <div style="position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:.3;">
+    <span class="mono-label">SCROLL</span>
+    <div style="width:1px;height:36px;background:linear-gradient(to bottom,rgba(201,168,76,.6),transparent)"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     2. QU'EST-CE QUE LA GÉOMATIQUE ?
+══════════════════════════════════════ -->
+<section id="definition" class="py-28 px-5 max-w-7xl mx-auto">
+  <div class="text-center mb-16">
+    <p class="eyebrow mb-4" data-aos="fade-up">Comprendre</p>
+    <h2 class="section-title text-4xl md:text-5xl text-white" data-aos="fade-up" data-aos-delay="80">
+      Qu'est-ce que la <span class="gold-text">Géomatique ?</span>
+    </h2>
+    <div class="divider-gold mx-auto" data-aos="fade-up" data-aos-delay="130"></div>
+    <p class="text-base leading-relaxed max-w-2xl mx-auto" style="color:rgba(240,237,232,.5)" data-aos="fade-up" data-aos-delay="180">
+      La géomatique, c'est l'ensemble des techniques qui permettent de <strong style="color:rgba(240,237,232,.75)">collecter, traiter, analyser et représenter</strong> l'information géographique. Un pont entre le terrain, les données et la décision.
+    </p>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-7">
+
+    <!-- Collecte -->
+    <div class="card-geo p-8 text-center" data-aos="fade-up" data-aos-delay="0">
+      <div class="w-16 h-16 rounded-sm flex items-center justify-center mx-auto mb-6"
+           style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);">
+        <i class="fa-solid fa-satellite-dish text-gold text-2xl"></i>
+      </div>
+      <p class="mono-label mb-3">Étape 01</p>
+      <h3 class="font-display text-2xl font-semibold text-white mb-3">Collecte de données</h3>
+      <p class="text-sm leading-relaxed" style="color:rgba(240,237,232,.5)">
+        Sur le terrain avec GPS, drones ou capteurs embarqués, on capte la réalité géographique avec une précision centimétrique. Chaque point enregistré devient une donnée exploitable.
+      </p>
+      <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(201,168,76,.08)">
+        <p class="mono-label">GPS · Drone · Capteurs</p>
+      </div>
+    </div>
+
+    <!-- Analyse -->
+    <div class="card-geo p-8 text-center" data-aos="fade-up" data-aos-delay="120"
+         style="border-color:rgba(201,168,76,.2);box-shadow:0 0 40px rgba(201,168,76,.05)">
+      <div class="w-16 h-16 rounded-sm flex items-center justify-center mx-auto mb-6"
+           style="background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);">
+        <i class="fa-solid fa-database text-gold text-2xl"></i>
+      </div>
+      <p class="mono-label mb-3">Étape 02</p>
+      <h3 class="font-display text-2xl font-semibold text-white mb-3">Analyse SIG</h3>
+      <p class="text-sm leading-relaxed" style="color:rgba(240,237,232,.5)">
+        Les Systèmes d'Information Géographique permettent de croiser, filtrer et modéliser les données spatiales pour en extraire des insights pertinents et des réponses à des problèmes concrets.
+      </p>
+      <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(201,168,76,.08)">
+        <p class="mono-label">QGIS · ArcGIS · PostGIS</p>
+      </div>
+    </div>
+
+    <!-- Visualisation -->
+    <div class="card-geo p-8 text-center" data-aos="fade-up" data-aos-delay="240">
+      <div class="w-16 h-16 rounded-sm flex items-center justify-center mx-auto mb-6"
+           style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);">
+        <i class="fa-solid fa-map-location-dot text-gold text-2xl"></i>
+      </div>
+      <p class="mono-label mb-3">Étape 03</p>
+      <h3 class="font-display text-2xl font-semibold text-white mb-3">Visualisation</h3>
+      <p class="text-sm leading-relaxed" style="color:rgba(240,237,232,.5)">
+        Des cartes thématiques claires, des modèles 3D et des tableaux de bord interactifs qui rendent l'information géographique accessible et compréhensible par tous.
+      </p>
+      <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(201,168,76,.08)">
+        <p class="mono-label">Cartographie · 3D · Dashboards</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     3. COMPÉTENCES
+══════════════════════════════════════ -->
+<section id="competences" class="py-28 px-5" style="background:linear-gradient(180deg,transparent,rgba(201,168,76,.025) 50%,transparent)">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <p class="eyebrow mb-4" data-aos="fade-up">Expertise</p>
+      <h2 class="section-title text-4xl md:text-5xl text-white" data-aos="fade-up" data-aos-delay="80">
+        Mes <span class="gold-text">Compétences</span>
+      </h2>
+      <div class="divider-gold mx-auto" data-aos="fade-up" data-aos-delay="130"></div>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+      <!-- Compétence 1 -->
+      <div class="card-geo p-6" data-aos="fade-up" data-aos-delay="0">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-10 h-10 rounded-sm flex items-center justify-center flex-shrink-0"
+               style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2)">
+            <i class="fa-solid fa-map text-gold"></i>
+          </div>
+          <div>
+            <h3 class="font-display text-xl font-semibold text-white">Cartographie numérique</h3>
+            <p class="mono-label">Production & mise en page</p>
+          </div>
+        </div>
+        <p class="text-sm leading-relaxed mb-4" style="color:rgba(240,237,232,.48)">
+          Création de cartes thématiques, choroplèthes, plans de masse et cartes de synthèse pour projets académiques ou commanditaires.
+        </p>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="85" style="width:0%"></div></div>
+        <p class="mono-label mt-1 text-right">Niveau avancé</p>
+      </div>
+
+      <!-- Compétence 2 -->
+      <div class="card-geo p-6" data-aos="fade-up" data-aos-delay="80">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-10 h-10 rounded-sm flex items-center justify-center flex-shrink-0"
+               style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2)">
+            <i class="fa-solid fa-layer-group text-gold"></i>
+          </div>
+          <div>
+            <h3 class="font-display text-xl font-semibold text-white">SIG</h3>
+            <p class="mono-label">Systèmes d'Information Géographique</p>
+          </div>
+        </div>
+        <p class="text-sm leading-relaxed mb-4" style="color:rgba(240,237,232,.48)">
+          Traitement de couches vectorielles et rasters, requêtes spatiales, géotraitement sous QGIS et ArcGIS.
+        </p>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="80" style="width:0%"></div></div>
+        <p class="mono-label mt-1 text-right">Niveau avancé</p>
+      </div>
+
+      <!-- Compétence 3 -->
+      <div class="card-geo p-6" data-aos="fade-up" data-aos-delay="160">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-10 h-10 rounded-sm flex items-center justify-center flex-shrink-0"
+               style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2)">
+            <i class="fa-solid fa-mountain-sun text-gold"></i>
+          </div>
+          <div>
+            <h3 class="font-display text-xl font-semibold text-white">Levés topographiques</h3>
+            <p class="mono-label">Terrain & instrumentation</p>
+          </div>
+        </div>
+        <p class="text-sm leading-relaxed mb-4" style="color:rgba(240,237,232,.48)">
+          Collecte de points GPS, utilisation de la station totale, nivellement et implantation sur le terrain.
+        </p>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="75" style="width:0%"></div></div>
+        <p class="mono-label mt-1 text-right">Niveau intermédiaire+</p>
+      </div>
+
+      <!-- Compétence 4 -->
+      <div class="card-geo p-6" data-aos="fade-up" data-aos-delay="0">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-10 h-10 rounded-sm flex items-center justify-center flex-shrink-0"
+               style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2)">
+            <i class="fa-solid fa-chart-area text-gold"></i>
+          </div>
+          <div>
+            <h3 class="font-display text-xl font-semibold text-white">Analyse spatiale</h3>
+            <p class="mono-label">Raisonnement géographique</p>
+          </div>
+        </div>
+        <p class="text-sm leading-relaxed mb-4" style="color:rgba(240,237,232,.48)">
+          Identification de patterns spatiaux, zones tampons, interpolation, analyses de voisinage et corrélations géospatiales.
+        </p>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="78" style="width:0%"></div></div>
+        <p class="mono-label mt-1 text-right">Niveau avancé</p>
+      </div>
+
+      <!-- Compétence 5 -->
+      <div class="card-geo p-6" data-aos="fade-up" data-aos-delay="80">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-10 h-10 rounded-sm flex items-center justify-center flex-shrink-0"
+               style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2)">
+            <i class="fa-solid fa-table text-gold"></i>
+          </div>
+          <div>
+            <h3 class="font-display text-xl font-semibold text-white">Traitement de données</h3>
+            <p class="mono-label">Nettoyage · Structuration</p>
+          </div>
+        </div>
+        <p class="text-sm leading-relaxed mb-4" style="color:rgba(240,237,232,.48)">
+          Préparation, nettoyage et structuration de bases de données attributaires géospatiales. Intégration dans des environnements SIG.
+        </p>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="70" style="width:0%"></div></div>
+        <p class="mono-label mt-1 text-right">Niveau intermédiaire+</p>
+      </div>
+
+      <!-- Compétence 6 -->
+      <div class="card-geo p-6" data-aos="fade-up" data-aos-delay="160">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-10 h-10 rounded-sm flex items-center justify-center flex-shrink-0"
+               style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2)">
+            <i class="fa-solid fa-satellite text-gold"></i>
+          </div>
+          <div>
+            <h3 class="font-display text-xl font-semibold text-white">Télédétection</h3>
+            <p class="mono-label">Images satellite · Drones</p>
+          </div>
+        </div>
+        <p class="text-sm leading-relaxed mb-4" style="color:rgba(240,237,232,.48)">
+          Interprétation d'images satellitaires, traitement de données raster, classification et extraction d'informations thématiques.
+        </p>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="65" style="width:0%"></div></div>
+        <p class="mono-label mt-1 text-right">Niveau intermédiaire</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     4. PROJETS / TERRAIN
+══════════════════════════════════════ -->
+<section id="projets" class="py-28 px-5 max-w-7xl mx-auto">
+  <div class="text-center mb-16">
+    <p class="eyebrow mb-4" data-aos="fade-up">Réalisations</p>
+    <h2 class="section-title text-4xl md:text-5xl text-white" data-aos="fade-up" data-aos-delay="80">
+      Projets & <span class="gold-text">Terrain</span>
+    </h2>
+    <div class="divider-gold mx-auto" data-aos="fade-up" data-aos-delay="130"></div>
+    <p class="text-sm" style="color:rgba(240,237,232,.4)" data-aos="fade-up" data-aos-delay="180">
+      <!-- Remplacer par vrais projets de Charlène -->
+      Exemples de travaux — à remplacer par les vrais projets et photos terrain de Charlène.
+    </p>
+  </div>
+
+  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+    <!-- Projet 1 -->
+    <!-- MODIFIER : titre, description, image -->
+    <div class="proj-card card-geo" style="aspect-ratio:4/3;" data-aos="fade-up" data-aos-delay="0">
+      <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&q=75"
+           alt="Levé topographique terrain" loading="lazy"/>
+      <div class="proj-overlay"></div>
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem;">
+        <span class="coord-badge mb-2 inline-block">PROJ_001</span>
+        <h3 class="font-display text-xl font-semibold text-white">Levé topographique</h3>
+        <p class="text-sm mt-1" style="color:rgba(240,237,232,.55)">Relevé GPS d'une zone périurbaine — Cotonou, 2024.</p>
+      </div>
+    </div>
+
+    <!-- Projet 2 -->
+    <!-- MODIFIER : titre, description, image -->
+    <div class="proj-card card-geo" style="aspect-ratio:4/3;" data-aos="fade-up" data-aos-delay="100">
+      <img src="https://images.unsplash.com/photo-1446329360995-b4642a139973?w=600&q=75"
+           alt="Cartographie SIG thématique" loading="lazy"/>
+      <div class="proj-overlay"></div>
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem;">
+        <span class="coord-badge mb-2 inline-block">PROJ_002</span>
+        <h3 class="font-display text-xl font-semibold text-white">Carte d'occupation du sol</h3>
+        <p class="text-sm mt-1" style="color:rgba(240,237,232,.55)">Analyse SIG de l'évolution de l'urbanisation — QGIS.</p>
+      </div>
+    </div>
+
+    <!-- Projet 3 -->
+    <!-- MODIFIER : titre, description, image -->
+    <div class="proj-card card-geo" style="aspect-ratio:4/3;" data-aos="fade-up" data-aos-delay="200">
+      <img src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=600&q=75"
+           alt="Analyse données géospatiales" loading="lazy"/>
+      <div class="proj-overlay"></div>
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem;">
+        <span class="coord-badge mb-2 inline-block">PROJ_003</span>
+        <h3 class="font-display text-xl font-semibold text-white">Analyse spatiale</h3>
+        <p class="text-sm mt-1" style="color:rgba(240,237,232,.55)">Traitement de données géospatiales pour un projet académique.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="text-center mt-10" data-aos="fade-up">
+    <!-- Placeholder : à connecter à galerie.html ou à un vrai portfolio -->
+    <a href="galerie.html" class="btn-outline">
+      <i class="fa-solid fa-arrow-right text-xs"></i> Voir tous les projets
+    </a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     5. VISION
+══════════════════════════════════════ -->
+<section id="vision" class="py-24 px-5" style="background:linear-gradient(180deg,transparent,rgba(201,168,76,.03) 40%,transparent)">
+  <div class="max-w-4xl mx-auto">
+    <div class="vision-block p-10 md:p-14 text-center relative" data-aos="fade-up" data-aos-duration="800">
+      <!-- Corner brackets -->
+      <div style="position:absolute;top:1rem;left:1rem;width:24px;height:24px;border-top:1px solid rgba(201,168,76,.5);border-left:1px solid rgba(201,168,76,.5)"></div>
+      <div style="position:absolute;top:1rem;right:1rem;width:24px;height:24px;border-top:1px solid rgba(201,168,76,.5);border-right:1px solid rgba(201,168,76,.5)"></div>
+      <div style="position:absolute;bottom:1rem;left:1rem;width:24px;height:24px;border-bottom:1px solid rgba(201,168,76,.5);border-left:1px solid rgba(201,168,76,.5)"></div>
+      <div style="position:absolute;bottom:1rem;right:1rem;width:24px;height:24px;border-bottom:1px solid rgba(201,168,76,.5);border-right:1px solid rgba(201,168,76,.5)"></div>
+
+      <p class="eyebrow mb-6">Vision</p>
+      <i class="fa-solid fa-quote-left text-5xl mb-6" style="color:rgba(201,168,76,.15)"></i>
+      <p class="section-title text-2xl md:text-3xl lg:text-4xl text-white leading-relaxed mb-6">
+        "Utiliser la géomatique pour
+        <span class="gold-text"> valoriser les territoires</span>
+        et soutenir le
+        <span class="gold-text">développement durable</span>
+        en Afrique."
+      </p>
+      <div class="divider-gold mx-auto"></div>
+      <p class="mono-label">— Charlène FIFAMIN KPATENON, Génie Géomatique</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     6. LIEN AVEC LA CULTURE
+══════════════════════════════════════ -->
+<section id="culture" class="py-28 px-5 max-w-7xl mx-auto">
+  <div class="grid lg:grid-cols-2 gap-14 items-center">
+
+    <!-- Image -->
+    <div data-aos="fade-right" data-aos-duration="800">
+      <div style="border-radius:4px;overflow:hidden;border:1px solid rgba(201,168,76,.18);box-shadow:0 20px 60px rgba(0,0,0,.5);aspect-ratio:4/3;position:relative;">
+        <!-- MODIFIER : remplacez par une photo alliant géomatique et culture -->
+        <img src="https://images.unsplash.com/photo-1519925610903-381054cc2a1c?w=700&q=80"
+             alt="Cartographie du patrimoine culturel africain" loading="lazy"
+             style="width:100%;height:100%;object-fit:cover;"/>
+        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.08),transparent 60%)"></div>
+        <!-- Overlay badge -->
+        <div style="position:absolute;bottom:1.25rem;left:1.25rem;background:rgba(10,10,10,.9);border:1px solid rgba(201,168,76,.25);border-radius:4px;padding:.6rem 1rem;">
+          <p class="mono-label">Géomatique × Culture</p>
+          <p class="font-display text-base font-semibold text-white mt-0.5">Positionnement unique</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Text -->
+    <div data-aos="fade-left" data-aos-duration="800" data-aos-delay="100">
+      <p class="eyebrow mb-4">Un positionnement unique</p>
+      <h2 class="section-title text-4xl md:text-5xl text-white mb-4 leading-tight">
+        Géomatique &amp;<br/>
+        <span class="gold-text">Culture africaine</span>
+      </h2>
+      <div class="divider-gold"></div>
+      <p class="text-base leading-relaxed mb-5" style="color:rgba(240,237,232,.55)">
+        Ce qui me distingue n'est pas seulement ma double casquette — c'est la <strong style="color:rgba(240,237,232,.8)">vision qu'elle génère</strong>. La géomatique n'est pas qu'une discipline technique : c'est un outil puissant pour cartographier, préserver et valoriser le patrimoine culturel immatériel.
+      </p>
+      <p class="text-base leading-relaxed mb-8" style="color:rgba(240,237,232,.55)">
+        Cartographier des espaces de pratiques culturelles, localiser les lieux de transmission des danses traditionnelles, modéliser la répartition des groupes d'artistes sur un territoire — autant de projets à l'interface de la science et de la culture que je souhaite mener.
+      </p>
+      <div class="space-y-3">
+        <div class="flex items-start gap-3">
+          <i class="fa-solid fa-check text-gold mt-0.5 text-sm flex-shrink-0"></i>
+          <p class="text-sm" style="color:rgba(240,237,232,.6)">Cartographie du patrimoine culturel immatériel</p>
+        </div>
+        <div class="flex items-start gap-3">
+          <i class="fa-solid fa-check text-gold mt-0.5 text-sm flex-shrink-0"></i>
+          <p class="text-sm" style="color:rgba(240,237,232,.6)">Localisation et préservation de sites culturels</p>
+        </div>
+        <div class="flex items-start gap-3">
+          <i class="fa-solid fa-check text-gold mt-0.5 text-sm flex-shrink-0"></i>
+          <p class="text-sm" style="color:rgba(240,237,232,.6)">Analyse spatiale des dynamiques culturelles en Afrique</p>
+        </div>
+        <div class="flex items-start gap-3">
+          <i class="fa-solid fa-check text-gold mt-0.5 text-sm flex-shrink-0"></i>
+          <p class="text-sm" style="color:rgba(240,237,232,.6)">Valorisation des territoires à forte identité culturelle</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     7. SERVICES GÉOMATIQUES
+══════════════════════════════════════ -->
+<section id="services" class="py-28 px-5" style="background:linear-gradient(180deg,transparent,rgba(201,168,76,.025) 50%,transparent)">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <p class="eyebrow mb-4" data-aos="fade-up">Ce que je propose</p>
+      <h2 class="section-title text-4xl md:text-5xl text-white" data-aos="fade-up" data-aos-delay="80">
+        Services <span class="gold-text">Géomatiques</span>
+      </h2>
+      <div class="divider-gold mx-auto" data-aos="fade-up" data-aos-delay="130"></div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-7">
+
+      <!-- Service 1 -->
+      <div class="card-geo p-8 flex flex-col" data-aos="fade-up" data-aos-delay="0">
+        <div class="w-12 h-12 rounded-sm flex items-center justify-center mb-5"
+             style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2)">
+          <i class="fa-solid fa-location-crosshairs text-gold text-lg"></i>
+        </div>
+        <p class="mono-label mb-2">SERVICE_01</p>
+        <h3 class="font-display text-2xl font-semibold text-white mb-3">Collecte terrain</h3>
+        <p class="text-sm leading-relaxed flex-1 mb-5" style="color:rgba(240,237,232,.5)">
+          Levés GPS, reconnaissance de site, recueil de données attributaires sur le terrain. Je me déplace et ramène des données fiables et précises.
+        </p>
+        <ul class="space-y-2 mb-6">
+          <li class="flex items-center gap-2 text-sm" style="color:rgba(240,237,232,.6)">
+            <i class="fa-solid fa-check text-gold/60 text-xs"></i> Relevés GPS précis
+          </li>
+          <li class="flex items-center gap-2 text-sm" style="color:rgba(240,237,232,.6)">
+            <i class="fa-solid fa-check text-gold/60 text-xs"></i> Rapport et données brutes
+          </li>
+          <li class="flex items-center gap-2 text-sm" style="color:rgba(240,237,232,.6)">
+            <i class="fa-solid fa-check text-gold/60 text-xs"></i> Croquis et photos terrain
+          </li>
+        </ul>
+        <!-- MODIFIER : WA_NUMBER -->
+        <a href="https://wa.me/2290143386670?text=Bonjour%20Charlène,%20je%20souhaite%20un%20devis%20pour%20une%20collecte%20terrain." target="_blank" rel="noopener" class="btn-gold justify-center text-center mt-auto">
+          <i class="fa-brands fa-whatsapp"></i> Demander un devis
+        </a>
+      </div>
+
+      <!-- Service 2 -->
+      <div class="card-geo p-8 flex flex-col" data-aos="fade-up" data-aos-delay="120"
+           style="border-color:rgba(201,168,76,.28);box-shadow:0 0 50px rgba(201,168,76,.06)">
+        <!-- Badge populaire -->
+        <div style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);">
+          <span style="background:#C9A84C;color:#0A0A0A;font-size:.63rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.28rem .85rem;border-radius:2px;">Recommandé</span>
+        </div>
+        <div class="w-12 h-12 rounded-sm flex items-center justify-center mb-5"
+             style="background:rgba(201,168,76,.14);border:1px solid rgba(201,168,76,.32)">
+          <i class="fa-solid fa-map text-gold text-lg"></i>
+        </div>
+        <p class="mono-label mb-2">SERVICE_02</p>
+        <h3 class="font-display text-2xl font-semibold text-white mb-3">Cartographie SIG</h3>
+        <p class="text-sm leading-relaxed flex-1 mb-5" style="color:rgba(240,237,232,.5)">
+          Production de cartes thématiques, traitement de données spatiales, analyse SIG et livraison de fichiers exploitables sous QGIS ou format PDF/PNG haute résolution.
+        </p>
+        <ul class="space-y-2 mb-6">
+          <li class="flex items-center gap-2 text-sm" style="color:rgba(240,237,232,.6)">
+            <i class="fa-solid fa-check text-gold/60 text-xs"></i> Cartes thématiques pro
+          </li>
+          <li class="flex items-center gap-2 text-sm" style="color:rgba(240,237,232,.6)">
+            <i class="fa-solid fa-check text-gold/60 text-xs"></i> Fichiers SIG livrables
+          </li>
+          <li class="flex items-center gap-2 text-sm" style="color:rgba(240,237,232,.6)">
+            <i class="fa-solid fa-check text-gold/60 text-xs"></i> Export PDF / PNG HD
+          </li>
+        </ul>
+        <a href="https://wa.me/2290143386670?text=Bonjour%20Charlène,%20je%20souhaite%20un%20devis%20pour%20de%20la%20cartographie%20SIG." target="_blank" rel="noopener" class="btn-gold justify-center text-center mt-auto">
+          <i class="fa-brands fa-whatsapp"></i> Demander un devis
+        </a>
+      </div>
+
+      <!-- Service 3 -->
+      <div class="card-geo p-8 flex flex-col" data-aos="fade-up" data-aos-delay="240">
+        <div class="w-12 h-12 rounded-sm flex items-center justify-center mb-5"
+             style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2)">
+          <i class="fa-solid fa-handshake text-gold text-lg"></i>
+        </div>
+        <p class="mono-label mb-2">SERVICE_03</p>
+        <h3 class="font-display text-2xl font-semibold text-white mb-3">Assistance projet</h3>
+        <p class="text-sm leading-relaxed flex-1 mb-5" style="color:rgba(240,237,232,.5)">
+          Collaboration sur vos projets géomatiques, accompagnement technique, aide à la compréhension et intégration de données géographiques dans vos études ou rapports.
+        </p>
+        <ul class="space-y-2 mb-6">
+          <li class="flex items-center gap-2 text-sm" style="color:rgba(240,237,232,.6)">
+            <i class="fa-solid fa-check text-gold/60 text-xs"></i> Conseil & accompagnement
+          </li>
+          <li class="flex items-center gap-2 text-sm" style="color:rgba(240,237,232,.6)">
+            <i class="fa-solid fa-check text-gold/60 text-xs"></i> Collaboration sur projets
+          </li>
+          <li class="flex items-center gap-2 text-sm" style="color:rgba(240,237,232,.6)">
+            <i class="fa-solid fa-check text-gold/60 text-xs"></i> Aide mémoires & TFE
+          </li>
+        </ul>
+        <a href="https://wa.me/2290143386670?text=Bonjour%20Charlène,%20je%20souhaite%20une%20assistance%20sur%20un%20projet%20géomatique." target="_blank" rel="noopener" class="btn-gold justify-center text-center mt-auto">
+          <i class="fa-brands fa-whatsapp"></i> Demander un devis
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     8. FAQ
+══════════════════════════════════════ -->
+<section id="faq" class="py-28 px-5">
+  <div class="max-w-3xl mx-auto">
+    <div class="text-center mb-14">
+      <p class="eyebrow mb-4" data-aos="fade-up">Questions fréquentes</p>
+      <h2 class="section-title text-4xl md:text-5xl text-white" data-aos="fade-up" data-aos-delay="80">
+        FAQ <span class="gold-text">Géomatique</span>
+      </h2>
+      <div class="divider-gold mx-auto" data-aos="fade-up" data-aos-delay="130"></div>
+    </div>
+
+    <div data-aos="fade-up" data-aos-delay="100">
+
+      <div class="faq-item">
+        <button class="faq-btn w-full py-5 px-1 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
+          <span class="font-display text-lg font-semibold text-white text-left">C'est quoi la géomatique exactement ?</span>
+          <i class="fa-solid fa-plus text-gold faq-icon flex-shrink-0"></i>
+        </button>
+        <div class="faq-answer">
+          <p class="text-sm leading-relaxed pb-5 px-1" style="color:rgba(240,237,232,.52)">
+            La géomatique est la discipline qui combine informatique et géographie pour collecter, traiter, analyser et représenter des données spatiales. Elle englobe les SIG, la cartographie, la topographie, la télédétection et le GPS. En résumé : c'est la science de la localisation et du territoire.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn w-full py-5 px-1 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
+          <span class="font-display text-lg font-semibold text-white text-left">À qui s'adressent tes services ?</span>
+          <i class="fa-solid fa-plus text-gold faq-icon flex-shrink-0"></i>
+        </button>
+        <div class="faq-answer">
+          <p class="text-sm leading-relaxed pb-5 px-1" style="color:rgba(240,237,232,.52)">
+            Mes services s'adressent aux étudiants en géosciences ayant besoin d'aide pour leurs projets, aux ONG et associations pour la cartographie de leurs zones d'intervention, aux collectivités locales, aux porteurs de projets d'aménagement et à toute personne ou structure ayant un besoin en information géographique.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn w-full py-5 px-1 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
+          <span class="font-display text-lg font-semibold text-white text-left">Est-ce que tu travailles sur le terrain ?</span>
+          <i class="fa-solid fa-plus text-gold faq-icon flex-shrink-0"></i>
+        </button>
+        <div class="faq-answer">
+          <p class="text-sm leading-relaxed pb-5 px-1" style="color:rgba(240,237,232,.52)">
+            Oui, absolument. Le terrain est une composante essentielle de mon travail. Je peux réaliser des levés GPS, des reconnaissances de zones et des collectes de données directement sur le terrain. J'interviens principalement au Bénin, avec possibilité de déplacement selon les projets.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn w-full py-5 px-1 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
+          <span class="font-display text-lg font-semibold text-white text-left">Quels logiciels utilises-tu ?</span>
+          <i class="fa-solid fa-plus text-gold faq-icon flex-shrink-0"></i>
+        </button>
+        <div class="faq-answer">
+          <p class="text-sm leading-relaxed pb-5 px-1" style="color:rgba(240,237,232,.52)">
+            J'utilise principalement QGIS (open source) et ArcGIS pour le traitement SIG et la cartographie. Pour le traitement de données, je travaille aussi avec des outils bureautiques classiques et des exports compatibles avec tous les environnements clients.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn w-full py-5 px-1 flex items-center justify-between gap-4" onclick="toggleFaq(this)">
+          <span class="font-display text-lg font-semibold text-white text-left">Comment te contacter pour un projet ?</span>
+          <i class="fa-solid fa-plus text-gold faq-icon flex-shrink-0"></i>
+        </button>
+        <div class="faq-answer">
+          <p class="text-sm leading-relaxed pb-5 px-1" style="color:rgba(240,237,232,.52)">
+            Le plus simple est de m'envoyer un message via WhatsApp ou de remplir le formulaire de contact ci-dessous. Décrivez brièvement votre besoin (type de projet, zone géographique, délai souhaité) et je reviens vers vous sous 24h avec une proposition.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     9. CONTACT
+══════════════════════════════════════ -->
+<section id="contact" class="py-28 px-5" style="background:linear-gradient(180deg,transparent,rgba(201,168,76,.025) 50%,transparent)">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <p class="eyebrow mb-4" data-aos="fade-up">Travaillons ensemble</p>
+      <h2 class="section-title text-4xl md:text-5xl text-white" data-aos="fade-up" data-aos-delay="80">
+        Prenons <span class="gold-text">Contact</span>
+      </h2>
+      <div class="divider-gold mx-auto" data-aos="fade-up" data-aos-delay="130"></div>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-10 items-start">
+
+      <!-- Carte contact rapide -->
+      <div class="card-geo p-8" data-aos="fade-right">
+        <h3 class="font-display text-2xl font-semibold text-white mb-6">Contact rapide</h3>
+        <div class="space-y-4">
+
+          <!-- WhatsApp -->
+          <!-- MODIFIER : WA_NUMBER et numéro affiché -->
+          <a href="https://wa.me/2290143386670" target="_blank" rel="noopener"
+             class="flex items-center gap-4 p-4 rounded-sm transition-colors hover:bg-gold/5 group"
+             style="border:1px solid rgba(201,168,76,.11)">
+            <div class="w-11 h-11 rounded-sm flex items-center justify-center flex-shrink-0"
+                 style="background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.2)">
+              <i class="fa-brands fa-whatsapp text-green-400 text-xl"></i>
+            </div>
+            <div>
+              <p class="font-medium text-sm" style="color:rgba(240,237,232,.9)">WhatsApp</p>
+              <p class="text-xs" style="color:rgba(240,237,232,.4)">+229 00 000 000</p>
+            </div>
+            <i class="fa-solid fa-arrow-right ml-auto text-sm transition-colors group-hover:text-gold/70" style="color:rgba(201,168,76,.3)"></i>
+          </a>
+
+          <!-- Email -->
+          <!-- MODIFIER : adresse email réelle -->
+          <a href="mailto:charlene.fifamin@email.com"
+             class="flex items-center gap-4 p-4 rounded-sm transition-colors hover:bg-gold/5 group"
+             style="border:1px solid rgba(201,168,76,.11)">
+            <div class="w-11 h-11 rounded-sm flex items-center justify-center flex-shrink-0"
+                 style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2)">
+              <i class="fa-regular fa-envelope text-gold text-xl"></i>
+            </div>
+            <div>
+              <p class="font-medium text-sm" style="color:rgba(240,237,232,.9)">Email</p>
+              <p class="text-xs" style="color:rgba(240,237,232,.4)">charlene.fifamin@email.com</p>
+            </div>
+            <i class="fa-solid fa-arrow-right ml-auto text-sm transition-colors group-hover:text-gold/70" style="color:rgba(201,168,76,.3)"></i>
+          </a>
+
+          <!-- LinkedIn -->
+          <!-- MODIFIER : lien LinkedIn réel -->
+          <a href="#" target="_blank" rel="noopener"
+             class="flex items-center gap-4 p-4 rounded-sm transition-colors hover:bg-gold/5 group"
+             style="border:1px solid rgba(201,168,76,.11)">
+            <div class="w-11 h-11 rounded-sm flex items-center justify-center flex-shrink-0"
+                 style="background:rgba(10,102,194,.1);border:1px solid rgba(10,102,194,.2)">
+              <i class="fa-brands fa-linkedin text-blue-400 text-xl"></i>
+            </div>
+            <div>
+              <p class="font-medium text-sm" style="color:rgba(240,237,232,.9)">LinkedIn</p>
+              <!-- MODIFIER : @handle LinkedIn -->
+              <p class="text-xs" style="color:rgba(240,237,232,.4)">Charlène FIFAMIN KPATENON</p>
+            </div>
+            <i class="fa-solid fa-arrow-right ml-auto text-sm transition-colors group-hover:text-gold/70" style="color:rgba(201,168,76,.3)"></i>
+          </a>
+
+          <!-- Instagram -->
+          <!-- MODIFIER : lien Instagram réel -->
+          <a href="#" target="_blank" rel="noopener"
+             class="flex items-center gap-4 p-4 rounded-sm transition-colors hover:bg-gold/5 group"
+             style="border:1px solid rgba(201,168,76,.11)">
+            <div class="w-11 h-11 rounded-sm flex items-center justify-center flex-shrink-0"
+                 style="background:rgba(225,48,108,.1);border:1px solid rgba(225,48,108,.18)">
+              <i class="fa-brands fa-instagram text-pink-400 text-xl"></i>
+            </div>
+            <div>
+              <p class="font-medium text-sm" style="color:rgba(240,237,232,.9)">Instagram</p>
+              <!-- MODIFIER : @handle Instagram -->
+              <p class="text-xs" style="color:rgba(240,237,232,.4)">@charlene.fifamin</p>
+            </div>
+            <i class="fa-solid fa-arrow-right ml-auto text-sm transition-colors group-hover:text-gold/70" style="color:rgba(201,168,76,.3)"></i>
+          </a>
+
+        </div>
+      </div>
+
+      <!-- Formulaire WhatsApp -->
+      <div class="card-geo p-8" data-aos="fade-left">
+        <h3 class="font-display text-2xl font-semibold text-white mb-2">Envoyer un message</h3>
+        <p class="text-sm mb-7" style="color:rgba(240,237,232,.4)">Remplissez ce formulaire — il prépare votre message WhatsApp automatiquement.</p>
+
+        <div class="space-y-4">
+          <div>
+            <label class="block eyebrow text-[.63rem] mb-2">Votre nom *</label>
+            <input type="text" id="c-name" class="form-input" placeholder="Ex : Ama Kossou" />
+          </div>
+          <div>
+            <label class="block eyebrow text-[.63rem] mb-2">Votre besoin *</label>
+            <select id="c-need" class="form-input">
+              <option value="">— Sélectionner —</option>
+              <option value="Collecte de données terrain">Collecte de données terrain</option>
+              <option value="Cartographie / SIG">Cartographie / SIG</option>
+              <option value="Assistance / collaboration projet">Assistance / collaboration projet</option>
+              <option value="Autre demande géomatique">Autre demande géomatique</option>
+            </select>
+          </div>
+          <div>
+            <label class="block eyebrow text-[.63rem] mb-2">Message *</label>
+            <textarea id="c-msg" class="form-input" placeholder="Décrivez votre projet, zone géographique, délai souhaité…"></textarea>
+          </div>
+          <!-- MODIFIER : WA_NUMBER dans le script ci-dessous -->
+          <button onclick="sendContactWA()" class="btn-gold w-full justify-center">
+            <i class="fa-brands fa-whatsapp"></i> Envoyer sur WhatsApp
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer class="pt-16 pb-10 px-5" style="border-top:1px solid rgba(201,168,76,.09)">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-10 mb-12">
+
+    <div>
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-9 h-9 border border-gold/40 rounded-sm flex items-center justify-center">
+          <span class="gold-text font-display font-bold text-base leading-none">CF</span>
+        </div>
+        <div>
+          <p class="text-[.7rem] tracking-[.18em] uppercase leading-none" style="color:rgba(201,168,76,.7)">Charlène</p>
+          <p class="text-xs font-semibold tracking-widest uppercase leading-none mt-0.5" style="color:rgba(240,237,232,.8)">FIFAMIN KPATENON</p>
+        </div>
+      </div>
+      <p class="text-sm leading-relaxed max-w-xs" style="color:rgba(240,237,232,.38)">
+        Géomatique & Danse Culturelle — Un esprit qui cartographie, un cœur qui danse.
+      </p>
+    </div>
+
+    <div>
+      <p class="eyebrow mb-4">Navigation</p>
+      <ul class="space-y-2">
+        <li><a href="index.html"      class="text-sm transition-colors hover:text-gold/80" style="color:rgba(240,237,232,.38)">Accueil</a></li>
+        <li><a href="danse.html"      class="text-sm transition-colors hover:text-gold/80" style="color:rgba(240,237,232,.38)">Danse Culturelle</a></li>
+        <li><a href="geomatique.html" class="text-sm transition-colors hover:text-gold/80" style="color:rgba(240,237,232,.38)">Géomatique</a></li>
+        <li><a href="services.html"   class="text-sm transition-colors hover:text-gold/80" style="color:rgba(240,237,232,.38)">Services</a></li>
+        <li><a href="galerie.html"    class="text-sm transition-colors hover:text-gold/80" style="color:rgba(240,237,232,.38)">Galerie</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="eyebrow mb-4">Réseaux sociaux</p>
+      <div class="flex flex-col gap-3">
+        <!-- MODIFIER : remplacez # par les vrais liens réseaux -->
+        <a href="#" target="_blank" rel="noopener" class="flex items-center gap-2 text-sm transition-colors hover:text-gold/80" style="color:rgba(240,237,232,.38)">
+          <i class="fa-brands fa-linkedin w-4"></i> LinkedIn
+        </a>
+        <a href="#" target="_blank" rel="noopener" class="flex items-center gap-2 text-sm transition-colors hover:text-gold/80" style="color:rgba(240,237,232,.38)">
+          <i class="fa-brands fa-instagram w-4"></i> Instagram
+        </a>
+        <a href="#" target="_blank" rel="noopener" class="flex items-center gap-2 text-sm transition-colors hover:text-gold/80" style="color:rgba(240,237,232,.38)">
+          <i class="fa-brands fa-tiktok w-4"></i> TikTok
+        </a>
+        <a href="#" target="_blank" rel="noopener" class="flex items-center gap-2 text-sm transition-colors hover:text-gold/80" style="color:rgba(240,237,232,.38)">
+          <i class="fa-brands fa-youtube w-4"></i> YouTube
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="pt-8 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3"
+       style="border-top:1px solid rgba(201,168,76,.07)">
+    <p class="text-xs" style="color:rgba(240,237,232,.22)">
+      © <span id="footer-year"></span> Charlène FIFAMIN KPATENON. Tous droits réservés.
+    </p>
+    <p class="font-display text-sm italic" style="color:rgba(201,168,76,.38)">
+      "Comprendre le territoire. Construire l'avenir."
+    </p>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+  // ── CONSTANTES ────────────────────────────────────────────────────────────
+  // Remplacer WA_NUMBER par le numéro officiel (format international sans +)
+  // Ex : 22901234567
+  const phoneNumber = "2290143386670";
+  // Remplacer par l'adresse email officielle
+  const emailAddress = "charlene.fifamin@email.com";
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /* AOS */
+  AOS.init({ once: true, offset: 55, duration: 740, easing: 'ease-out-cubic' });
+
+  /* Footer year */
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+  /* Scroll effects */
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    // Progress bar
+    document.getElementById('progress-bar').style.width = (scrolled / max * 100) + '%';
+    // Navbar
+    document.getElementById('navbar').classList.toggle('scrolled', scrolled > 60);
+    // Back to top
+    document.getElementById('back-to-top').classList.toggle('visible', scrolled > 400);
+  }, { passive: true });
+
+  /* Skill bars — animate when visible */
+  const skillObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const fill = e.target;
+        const width = fill.dataset.width + '%';
+        setTimeout(() => { fill.style.width = width; }, 200);
+        skillObserver.unobserve(fill);
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.skill-bar-fill').forEach(el => skillObserver.observe(el));
+
+  /* Mobile menu */
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+  function closeMobileMenu() {
+    document.getElementById('mobile-menu').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('mobile-close').addEventListener('click', closeMobileMenu);
+
+  /* FAQ */
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const answer = item.querySelector('.faq-answer');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-answer').classList.remove('open');
+    });
+    if (!isOpen) { item.classList.add('open'); answer.classList.add('open'); }
+  }
+
+  /* Contact WhatsApp */
+  function sendContactWA() {
+    const name = (document.getElementById('c-name').value || '').trim();
+    const need = (document.getElementById('c-need').value || '').trim();
+    const msg  = (document.getElementById('c-msg').value  || '').trim();
+
+    if (!name || !need || !msg) {
+      alert('Merci de renseigner votre nom, votre besoin et votre message.'); return;
+    }
+
+    const text =
+      `Bonjour Charlène 👋\n\n` +
+      `📍 *Demande géomatique*\n\n` +
+      `• Nom : ${name}\n` +
+      `• Besoin : ${need}\n\n` +
+      `💬 Message :\n${msg}\n\n` +
+      `Merci de me recontacter pour un devis.`;
+
+    window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+  }
+</script>
+
+</body>
+</html>
